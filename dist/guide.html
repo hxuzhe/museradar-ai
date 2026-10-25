@@ -1,0 +1,473 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>MuseRadar AI 使用指南</title><meta name="description" content="从真实评论到营销方案，逐步体验 MuseRadar AI 的完整工作流程。"><style>
+:root{font-family:system-ui,"Microsoft YaHei",sans-serif;color:#20374c;background:#f5f8fa;line-height:1.9;scroll-behavior:smooth}*{box-sizing:border-box}body{margin:0}header{background:#122d40;color:white;padding:22px max(24px,calc((100vw - 1240px)/2));display:flex;justify-content:space-between;gap:16px;align-items:center}header strong{font-size:21px}header small{display:block;color:#adc6cc;font-size:12px}header a{color:#b9f5e1;border:1px solid #568d88;border-radius:7px;padding:7px 14px;text-decoration:none;font-size:13px}.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:28px;max-width:1240px;margin:32px auto;padding:0 24px}aside{position:sticky;top:24px;align-self:start;max-height:90vh;overflow:auto;font-size:12px}aside>strong{font-size:13px;color:#688592}.toc ul{list-style:none;padding-left:0}.toc a{display:block;color:#607783;text-decoration:none;padding:7px 10px;border-left:2px solid #dce8e9}.toc a:hover{color:#007f6d;background:#e9f6f0;border-color:#16a28d}.toc li:first-child{display:none}article{min-width:0;background:white;padding:38px 46px;border:1px solid #e0e8ed;border-radius:12px}h1{font-size:30px;line-height:1.4;margin:0 0 24px;color:#143c48}h2{font-size:22px;line-height:1.6;color:#0e695f;margin:48px 0 20px;padding-top:16px;border-top:1px solid #e6eeef;scroll-margin-top:24px}h3{font-size:17px;margin:30px 0 14px;scroll-margin-top:24px}p,li{font-size:14px}li{margin:8px 0}a{color:#007e70;overflow-wrap:anywhere}strong{font-weight:650}blockquote{margin:20px 0;border-left:4px solid #41ad92;padding:12px 20px;background:#edf8f2;border-radius:0 7px 7px 0}blockquote p{margin:0}table{display:block;max-width:100%;overflow:auto;border-collapse:collapse;font-size:13px;margin:20px 0}th,td{border:1px solid #dce7ea;padding:11px 13px;text-align:left;vertical-align:top}th{background:#f0f6f5;color:#32594f;white-space:nowrap}td{min-width:110px}code{background:#edf2f5;border-radius:4px;padding:2px 5px;font-size:.92em;overflow-wrap:anywhere}pre{padding:18px;background:#112b3d;color:#daf1ed;border-radius:7px;overflow:auto;line-height:1.7}pre code{background:transparent;padding:0}footer{font-size:12px;color:#7b8d99;margin-top:35px;padding-top:20px;border-top:1px solid #e0e8ed}.download{margin:0 0 25px;font-size:12px;color:#72828b}@media(max-width:900px){.layout{grid-template-columns:1fr;gap:16px;margin:20px auto;padding:0 16px}aside{position:static;max-height:210px;background:#eef6f4;padding:15px;border-radius:9px}article{padding:25px 23px}header{padding:18px 20px}h1{font-size:25px}h2{font-size:20px}p,li{font-size:13px}}@media print{aside,header,.download{display:none}.layout{display:block;padding:0;margin:0}article{padding:0;border:0}h2{break-after:avoid}a{color:inherit}table{display:table}pre{white-space:pre-wrap}}
+</style></head><body><header><div><strong>MuseRadar AI · 使用指南</strong><small>真实评论 → 规则分析 → 人工复核 → 营销草案</small></div><a href="./" target="_blank" rel="noopener">打开工作台 ↗</a></header><div class="layout"><aside><strong>操作目录</strong><div class="toc">
+<ul>
+<li><a href="#museradar-ai">MuseRadar AI 使用指南</a><ul>
+<li><a href="#1">1. 开始前先了解：哪些是真实数据，哪些是演示能力</a></li>
+<li><a href="#2">2. 首页：先确认数据范围</a></li>
+<li><a href="#3">3. 博物馆知识库：了解系统拿什么资源做匹配</a></li>
+<li><a href="#4">4. 社交数据中心：先选一条真实中文评论，再体验在线检索</a></li>
+<li><a href="#5">5. 需求识别与评分：逐项看证据</a></li>
+<li><a href="#6">6. 改一次馆藏关键词，观察匹配如何变化</a></li>
+<li><a href="#7">7. 人工复核与主题洞察：从单条表达汇总到主题</a></li>
+<li><a href="#8">8. 营销工作台：生成、核实、编辑、保存和导出</a></li>
+<li><a href="#9">9. 导入自己的授权数据，以及导出本次成果</a></li>
+<li><a href="#10">10. 数据保存与重新体验</a></li>
+<li><a href="#11">11. 常见问题</a></li>
+<li><a href="#12">12. 完整体验检查表</a></li>
+<li><a href="#a">附录 A：研究数据出处与使用边界</a></li>
+<li><a href="#b">附录 B：开发者运行与部署</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside><article><p class="download">最后更新：2026-10-26 · <a href="./README.md" download>下载 Markdown 指南</a> · 可使用浏览器打印功能另存为 PDF</p><h1 id="museradar-ai">MuseRadar AI 使用指南</h1>
+<p><strong>跟着本指南，可以从核对真实评论开始，完整体验资源建模、需求分析、人工复核、主题洞察、营销方案生成与导出。</strong>无需 API Key，无需安装软件。建议使用桌面浏览器，首次完整体验约需 20—30 分钟。</p>
+<ul>
+<li><a href="https://hxuzhe.github.io/museradar-ai/">打开网站</a></li>
+<li><a href="https://hxuzhe.github.io/museradar-ai/#social">打开社交数据中心</a></li>
+<li><a href="https://hxuzhe.github.io/museradar-ai/guide.html">在线操作指南</a></li>
+<li><a href="https://hxuzhe.github.io/museradar-ai/provenance.json">数据来源与处理清单</a></li>
+</ul>
+<p>说明更新：2026-10-26。以下步骤对应当前已上线功能。网站默认展示虚构的“云川历史工艺博物馆”，真实评论来自其他博物馆，两者的匹配仅用于演示跨馆资源启发。</p>
+<h2 id="1">1. 开始前先了解：哪些是真实数据，哪些是演示能力</h2>
+<table>
+<thead>
+<tr>
+<th>内容</th>
+<th>当前实际情况</th>
+<th>体验时怎样理解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内置中文评论</td>
+<td>256 条公开研究附件中的马蜂窝历史原评转录，原评日期为 2013-12-03 至 2020-04-22</td>
+<td>可核对原文和页码；不是近期中文社交舆情</td>
+</tr>
+<tr>
+<td>在线公开评论</td>
+<td>手动调用 HN Search 接口，检索 Hacker News 评论，以英文为主</td>
+<td>要点击获取，成功后才加入当前浏览器；不是后台持续采集</td>
+</tr>
+<tr>
+<td>博物馆及馆藏</td>
+<td>默认是虚构示例，可自行修改</td>
+<td>不能把示例门票、活动或限制当成真实馆方承诺</td>
+</tr>
+<tr>
+<td>主题、意图、匹配和评分</td>
+<td>浏览器中的中英文词典、规则和加权计算</td>
+<td>没有调用 LLM 或 Embedding，不消耗大模型 Token</td>
+</tr>
+<tr>
+<td>营销方案</td>
+<td>用当前主题、原文证据、匹配资源和预设模板组合生成</td>
+<td>需要人工编辑、核实，不能直接当作已验证的营销策略</td>
+</tr>
+<tr>
+<td>A/B 效果沙盘</td>
+<td>手动输入假设曝光量和点击量，计算点击率</td>
+<td>不是实际投放结果</td>
+</tr>
+</tbody>
+</table>
+<p><strong>默认首页“高潜力需求信号数”为 0 是正常结果。</strong>内置数据都是历史评论，不应因为里面出现“推荐、值得去”就认定为新的到访需求。体验的目标是理解证据和工作流程，不是把每条评论都变成高分线索。</p>
+<h3 id="figshare">为什么“全部来源”里可能只有 Figshare？</h3>
+<p>这个下拉框筛选的是<strong>当前已经载入的数据</strong>，不是可连接平台的目录。首次打开时只载入研究快照，所以通常只看到“Figshare · 博物馆历史评论”。</p>
+<p>在线 HN 检索成功后，才会出现“HN Search · 公开讨论”。别人或开发者在另一浏览器里读取的评论，不会自动同步到你的浏览器。获取方法见第 4 步。</p>
+<h2 id="2">2. 首页：先确认数据范围</h2>
+<ol>
+<li>打开<a href="https://hxuzhe.github.io/museradar-ai/#overview">智能洞察总览</a>。</li>
+<li>如果之前使用过网站，先点击 <strong>“清除筛选”</strong>。</li>
+<li>查看顶部博物馆名称、原始发布时间范围，以及四张统计卡片。</li>
+<li>浏览需求主题分布、评论发布时间分布、意向分布和机会排行。</li>
+<li>点击 <strong>“开始发现潜在观众需求”</strong>，进入社交数据中心。</li>
+</ol>
+<p><strong>应当看到什么：</strong>首次使用、没有另外导入数据时，已分析内容通常为 256 条；各主题讨论量来自这些实际记录。后续添加数据或改变筛选后，数量会变化。</p>
+<p>“评论发布时间分布”展示的是旧评论在哪些年份发布，不能解释成当前平台热度。机会排行只是待复核的启发式排序。</p>
+<h2 id="3">3. 博物馆知识库：了解系统拿什么资源做匹配</h2>
+<p>进入<a href="https://hxuzhe.github.io/museradar-ai/#dna">博物馆知识库</a>。</p>
+<ol>
+<li>查看名称、城市、简介、重点资源、开放时间、预约与拍摄限制。</li>
+<li>向下浏览 12 项默认展品和活动。</li>
+<li>找到 <strong>“儿童文物探索课”</strong>，点击 <strong>“详情 / 编辑”</strong>。</li>
+<li>重点看关键词、适合场景、客群、参与条件和实际限制。</li>
+<li>暂时关闭编辑框，不必修改；第 6 步会做一次可观察的匹配实验。</li>
+</ol>
+<p>需要使用自己的馆方资料时，可以编辑上方表单，点击 <strong>“保存资料并重新匹配”</strong>；资源通过 <strong>“＋ 添加资源”</strong>、<strong>“详情 / 编辑”</strong> 和 <strong>“删除”</strong> 管理。</p>
+<p><strong>理解这一页：</strong>当前匹配器主要使用每项资源的“关键词”。只改博物馆名称或简介，不代表系统已经理解了新的资源语义；要影响词项匹配，应修改对应资源的关键词。活动条件和限制会进入详情和方案，仍需由真实馆方核实。</p>
+<p>“知识库关键词扩展”是预设示例，不是模型生成；要让扩展词参与匹配，需要把词加入资源关键词。</p>
+<h2 id="4">4. 社交数据中心：先选一条真实中文评论，再体验在线检索</h2>
+<h3 id="41">4.1 用确定可复核的中文历史评论开始</h3>
+<p>进入<a href="https://hxuzhe.github.io/museradar-ai/#social">社交数据中心</a>，点击 <strong>“清除筛选”</strong>。</p>
+<ol>
+<li>在“搜索正文或内容 ID”中输入 <code>FS21677282-238</code>。</li>
+<li>输入后点击输入框外的空白处，让搜索条件生效。</li>
+<li>表格应剩下对应记录，正文为：</li>
+</ol>
+<blockquote>
+<p>比较适合带孩子来，很多真车藏品和互动设备。</p>
+</blockquote>
+<p>这条评论的原评日期是 <strong>2019-03-20</strong>，研究附件将其归于<strong>北京汽车博物馆</strong>，证据位于 <strong>PDF 第 34 页、记录 238</strong>。</p>
+<ol>
+<li>点击该行的 <strong>“PDF 第 34 页 · 记录 238 ↗”</strong>，或打开<a href="https://ndownloader.figshare.com/files/38433161#page=34">研究附件第 34 页</a>，核对原文。</li>
+<li>回到网站，点击整条表格记录，进入需求分析详情。</li>
+</ol>
+<p>这是一条有出处的历史评论，不是为演示临时编写的用户表达。它能支持“亲子、互动体验”的讨论，不能直接证明“想参加传统手作”或“计划来当前博物馆”。</p>
+<h3 id="42-hn">4.2 在线读取 HN 真实公开评论</h3>
+<p>可以先完成第 5—8 步的中文评论主流程，再回来体验这一段。</p>
+<ol>
+<li>回到社交数据中心，点击 <strong>“清除筛选”</strong>。</li>
+<li>在上方 <strong>“02 · 按需检索真实公开讨论”</strong> 区域，将关键词设为 <code>museum</code>。</li>
+<li>首次体验可选择 <strong>“不限时间”</strong>。以后可改为最近 30 天、90 天或一年。</li>
+<li>点击 <strong>“获取真实评论并分析”</strong>，等待返回结果；请求超时会给出错误提示。</li>
+<li>查看“上次真实请求”中的原始响应数、排除数、新增数、重复数、页码和读取时间。</li>
+<li>查看 <strong>“查看原始 API 响应 ↗”</strong>，再点表格中的 <strong>“查看原文 ↗”</strong>，核对单条评论。</li>
+<li>此时来源筛选框应出现并选中 <strong>“HN Search · 公开讨论”</strong>。</li>
+<li>需要更多内容时点击 <strong>“下一页”</strong>；重复读取同一页可能新增 0 条，这是去重的正常结果。</li>
+</ol>
+<p>每页最多读取 50 条；空正文、招聘主题等可能被排除，接口也可能返回不足 50 条或没有结果。<strong>不要以“必须出现 50 条”为成功标准，应以真实响应和原文链接为准。</strong></p>
+<p>HN 是英文科技社区。检索 <code>museum</code> 仍会出现博物馆类比、技术讨论等无关内容，不能把检索命中等同于潜在观众。下一步应结合原文复核。</p>
+<p>如果获取失败，已有研究数据会保留，系统不会补造评论。在线请求由你点击触发，没有定时采集或跨浏览器同步。</p>
+<h3 id="43">4.3 筛选、话题词与数据载入按钮</h3>
+<ul>
+<li>可按正文或 ID、主题、意向、来源、日期、内容类型及人工复核状态筛选。</li>
+<li>日期筛选使用原始发布时间，不使用本次读取时间。</li>
+<li>点击话题词可以搜索相关表达。词频来自已载入样本的词典命中条数，不代表平台总体趋势。</li>
+<li><strong>“载入真实研究评论”</strong> 会补充内置研究记录并去重；已经载入时新增 0 条正常。它不会重置馆藏、权重或清空你的数据。</li>
+<li><strong>“开始分析当前筛选”</strong> 会分析当前筛选记录并进入评分页。内置记录和 HN 返回记录通常已分析，导入记录则需要这一步。</li>
+</ul>
+<h2 id="5">5. 需求识别与评分：逐项看证据</h2>
+<p>继续使用 <code>FS21677282-238</code>。如已切换到 HN，请回到社交数据中心，清除筛选，重新搜索此 ID 并点击该行。</p>
+<p>右侧按以下顺序阅读：</p>
+<ol>
+<li><strong>原文高亮</strong>：看哪些词影响了判断，不要只看综合分。</li>
+<li><strong>原文来源与边界</strong>：核对平台、评论对象、原评日期、采集日期、PDF 页码和处理说明。</li>
+<li><strong>主题与意图</strong>：本例应与亲子教育、互动相关；历史来源会按明确到访线索或“历史评论/到访待核实”处理，不会进入新观众高潜力名单。</li>
+<li><strong>五维评分</strong>：每个维度下方都有解释。</li>
+<li><strong>匹配馆藏 / 活动</strong>：看资源名称、参与条件和限制。它们是对示例馆的跨馆启发，不是对原评论所述博物馆活动的确认。</li>
+<li><strong>缺失信息与不确定性</strong>：特别注意位置、未来日期、预约条件和评论时效。</li>
+</ol>
+<h3 id="_1">怎样理解分数和证据覆盖率</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th style="text-align: right;">默认权重</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>馆藏主题契合度</td>
+<td style="text-align: right;">25%</td>
+</tr>
+<tr>
+<td>参观意图强度</td>
+<td style="text-align: right;">30%</td>
+</tr>
+<tr>
+<td>时间地点适配度</td>
+<td style="text-align: right;">15%</td>
+</tr>
+<tr>
+<td>体验需求匹配度</td>
+<td style="text-align: right;">20%</td>
+</tr>
+<tr>
+<td>信号质量与时效性</td>
+<td style="text-align: right;">10%</td>
+</tr>
+</tbody>
+</table>
+<p>有证据的维度参与加权计算；缺证据的维度显示 <strong>“证据不足（不计入分母）”</strong>。即使对应横条显示为 0，也不能将“缺证据”理解成已经确认的低分。</p>
+<ul>
+<li><strong>综合分</strong>：已知维度的归一化加权均值，表示规则下的信号强弱。</li>
+<li><strong>证据覆盖率</strong>：已知维度权重占总权重的比例，低于 70% 时标记待核实。</li>
+<li><strong>高潜力</strong>：还需满足公开讨论、有来源链接、原评在一年内、资源匹配、分数至少 70、覆盖率至少 70%，并排除历史、负面及人工拒绝项。</li>
+</ul>
+<p>分数不是到馆概率，覆盖率也不是统计置信度。历史评论时效较低，不应通过调整权重把它“调成新客户”。</p>
+<h3 id="_2">做一次权重实验</h3>
+<ol>
+<li>记下当前分数和覆盖率。</li>
+<li>把“馆藏主题契合度”权重从 25 调到 40。</li>
+<li>观察单条分数、覆盖率及后续主题排序的变化；变化方向取决于各维度原本的分数。</li>
+<li>点击 <strong>“重置默认”</strong>，恢复 25 / 30 / 15 / 20 / 10。</li>
+</ol>
+<p>权重不必手动凑成 100，系统会归一化；全部设为 0 时不产生综合分。权重变化会影响评分，但不会改变原文、数据来源或历史评论身份。</p>
+<h2 id="6">6. 改一次馆藏关键词，观察匹配如何变化</h2>
+<p>本步骤用于理解匹配机制；操作前请复制原关键词，方便恢复。</p>
+<ol>
+<li>保留第 4 步的评论 ID，进入博物馆知识库。</li>
+<li>找到 <strong>“儿童文物探索课” → “详情 / 编辑”</strong>。</li>
+<li>若关键词中尚无“互动”，在原关键词后用空格加上 <code>互动</code>。</li>
+<li>点击 <strong>“保存并重新匹配”</strong>。</li>
+<li>回到需求识别与评分，重新点击 <code>FS21677282-238</code>。</li>
+<li>检查匹配资源及词项解释。因为原文确有“互动设备”，新增词通常会增加该资源的命中数，使它更靠前；若你先前修改过资源，结果可能不同。</li>
+<li>如仅做演示，按事先记录的原值恢复关键词。</li>
+</ol>
+<p><strong>这一实验说明系统当前使用词项匹配。</strong>加一个词不等于资源实际上存在相应设备或活动；不要为提高分数添加不符合实际的关键词。</p>
+<h2 id="7">7. 人工复核与主题洞察：从单条表达汇总到主题</h2>
+<h3 id="71">7.1 先复核一条内容</h3>
+<p>在评论详情中，分别体验：</p>
+<ul>
+<li><strong>“值得参考”</strong>：保存你的人工判断，不改变规则分数。</li>
+<li><strong>“暂不采用”</strong>：记录仍保留在数据表中，但不进入机会聚合与方案证据。</li>
+<li><strong>“重置复核”</strong>：回到待复核状态。</li>
+</ul>
+<p>可将 <code>FS21677282-238</code> 先标为“暂不采用”，观察亲子主题的采用量，再用“重置复核”恢复。总数据量不会因为复核而删除记录。</p>
+<h3 id="72">7.2 清除单条搜索，再查看整个主题</h3>
+<ol>
+<li>回到社交数据中心，点击 <strong>“清除筛选”</strong>，去掉 ID、日期、来源等遗留条件。</li>
+<li>在主题筛选中选择 <strong>“亲子教育与互动”</strong>。</li>
+<li>进入<a href="https://hxuzhe.github.io/museradar-ai/#insights">需求洞察与机会</a>。</li>
+<li>阅读讨论量、样本占比、平均信号、明确计划占比、证据覆盖率和历史评论数。</li>
+<li>展开 <strong>“查看指数依据与原文”</strong>，随机选几条原文复核，不只看代表评论。</li>
+<li>尝试按机会指数、讨论规模、信号强度或证据覆盖率排序。</li>
+<li>点击 <strong>“查看原始内容”</strong> 可以回到对应主题的数据表。</li>
+</ol>
+<p><strong>应当看到什么：</strong>在未增删、未拒绝原始研究记录的首次状态下，亲子教育与互动主题约有 30 条记录。若保留单条 ID 搜索，就可能只统计 1 条；若来源仍选 HN，看到的将是 HN 子集。这不是数据丢失。</p>
+<p>机会指数由规模、信号、契合、覆盖和预设执行便利组成，仅供复核排序。<strong>“现有宣传覆盖：待核实”</strong>表示没有接入真实投放数据，不能据此断言馆方没有宣传。历史评论适合启发体验和内容改进，不能直接证明当下获客机会。</p>
+<h2 id="8">8. 营销工作台：生成、核实、编辑、保存和导出</h2>
+<ol>
+<li>在“亲子教育与互动”主题卡片上点击 <strong>“生成营销策略 ↗”</strong>。</li>
+<li>进入<a href="https://hxuzhe.github.io/museradar-ai/#studio">智能营销工作台</a>，确认需求主题正确。</li>
+<li>如果该主题已有保存方案，或刚改过筛选、资源、权重，点击 <strong>“重新生成”</strong>，阅读覆盖提示后确认。已有方案不会因为数据变化自动改写。</li>
+<li>依次检查八部分：机会和证据、目标需求群体、推荐资源、内容切入点、A/B 文案、平台关键词、运营建议、验证指标。</li>
+<li>根据评论原文和真实馆方情况直接修改方案文本。优先核查活动是否存在、年龄要求、预约、开放时间和拍照限制。</li>
+<li>点击 <strong>“保存方案”</strong>，把编辑结果保存到当前浏览器。</li>
+<li>点击 <strong>“复制”</strong>，粘贴到自己的文档；或点击 <strong>“导出 Markdown”</strong> 下载方案。</li>
+</ol>
+<p><strong>建议完成的一份成果：</strong>一份包含真实评论出处、具体资源限制、两套宣传文案和后续验证指标的亲子主题草案。它是待验证的内容方案，不是已经通过实际投放验证的结论。</p>
+<p>方案使用当前筛选后的主题数据，并排除“暂不采用”记录。若某主题在当前筛选中没有证据，请先返回数据中心检查条件，不要把空证据草稿当作有效策略。</p>
+<h3 id="ab">体验 A/B 效果沙盘</h3>
+<p>右侧可分别输入 A、B 文案的假设曝光数和点击数。例如，A 的曝光数为 1000、点击数为 50，页面计算点击率为 5%；把点击数改为 80，应变为 8%。</p>
+<p>点击数不能大于曝光数，曝光数必须大于 0。这个沙盘只演示点击率计算，没有连接广告平台，也没有真实报名和到场数据。方案中列出的报名转化率、实际到场率等指标，需要以后自行收集并验证。</p>
+<h2 id="9">9. 导入自己的授权数据，以及导出本次成果</h2>
+<h3 id="csv-json">导入 CSV / JSON</h3>
+<ol>
+<li>准备自己有权使用、已脱敏的评论文件。CSV 第一行是字段名；JSON 须为对象数组。</li>
+<li>在社交数据中心点击 <strong>“↑ 导入 CSV / JSON”</strong>。</li>
+<li>选择文件，阅读有效条数、错误条数和前几条原文预览。</li>
+<li>点击 <strong>“确认导入有效行”</strong>。有错误的行不会导入。</li>
+<li>为便于定位，可按来源选择“用户导入（真实性未核实）”。</li>
+<li>点击 <strong>“开始分析当前筛选”</strong>。</li>
+<li>核对来源与评分，再按第 7—8 步汇总主题、生成方案。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>text</code></td>
+<td>必填，非空正文</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td>可选；缺失时自动生成；与现有 ID 重复会报错</td>
+</tr>
+<tr>
+<td><code>date</code></td>
+<td>可空；有值时必须是有效的 <code>YYYY-MM-DD</code> 原始发布日期</td>
+</tr>
+<tr>
+<td><code>platform</code></td>
+<td>可选，平台说明</td>
+</tr>
+<tr>
+<td><code>source</code></td>
+<td>可选，作为用户声明保留，不会因此被认定为已核验来源</td>
+</tr>
+<tr>
+<td><code>sourceUrl</code></td>
+<td>可选，原始内容的 http(s) 链接</td>
+</tr>
+<tr>
+<td><code>evidenceUrl</code></td>
+<td>可选，具体证据链接；未提供时可使用 <code>sourceUrl</code></td>
+</tr>
+</tbody>
+</table>
+<p>不要把当天导入日期填写成旧评论的发布日期。不要通过更换 ID 反复导入同一正文：导入器会校验重复 ID，但不会保证自动识别所有重复正文。HN 读取和研究快照载入另有 ID/正文去重逻辑。</p>
+<p>导入记录统一标为来源未核实，不会仅因文件声称“已核验”而进入高潜力名单。系统不保留额外身份字段，但正文中的个人信息仍应由导入者预先处理。</p>
+<h3 id="_3">导出成果</h3>
+<table>
+<thead>
+<tr>
+<th>所在页面</th>
+<th>按钮</th>
+<th>导出内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>社交数据中心</td>
+<td>导出当前数据</td>
+<td>当前筛选记录，JSON</td>
+</tr>
+<tr>
+<td>社交数据中心 → 运行记录</td>
+<td>导出读取记录</td>
+<td>在线读取的查询、时间、数量和请求信息，JSON</td>
+</tr>
+<tr>
+<td>需求洞察与机会</td>
+<td>导出主题结果</td>
+<td>当前主题聚合与证据，JSON</td>
+</tr>
+<tr>
+<td>智能营销工作台</td>
+<td>导出 Markdown</td>
+<td>当前编辑器中的方案文本</td>
+</tr>
+</tbody>
+</table>
+<p>导出前确认筛选条件。<strong>这些导出不是完整工作空间备份</strong>：重新导入评论文件不会自动恢复馆藏、方案或人工复核，也不会保留原始记录的“已核验”身份。</p>
+<h2 id="10">10. 数据保存与重新体验</h2>
+<ul>
+<li>网站将数据、资源、权重、已保存方案和复核记录保存在当前浏览器的本地存储中，没有服务端用户数据库。</li>
+<li>换浏览器、换设备、换网址或清除网站数据后，这些本地内容不会自动同步。</li>
+<li>普通刷新通常保留已保存内容；正在编辑但未点击保存的方案可能丢失。上次请求的即时提示与筛选条件也不保证刷新后保留。</li>
+<li>HN 读取记录会保留最近 30 次；它们不能证明后台持续采集。</li>
+<li>想重新体验首次状态，可以在新的浏览器配置或无痕窗口打开网站。不要为了重置而清空仍需保留的数据。</li>
+<li>网站首次加载及在线检索需要网络；内置评论载入后可做本地规则计算，但没有承诺完整离线缓存。</li>
+</ul>
+<h2 id="11">11. 常见问题</h2>
+<table>
+<thead>
+<tr>
+<th>看到的情况</th>
+<th>含义与处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>来源列表只有 Figshare</td>
+<td>当前只载入了研究快照；按第 4.2 节获取 HN，成功后才有新来源</td>
+</tr>
+<tr>
+<td>HN 新增 0 条</td>
+<td>可能没有匹配结果，或本页评论已载入；看响应数、重复数和时间范围，不要只看新增数</td>
+</tr>
+<tr>
+<td>HN 返回英文或无关内容</td>
+<td>这是英文科技社区，检索命中不等于文化需求；核对原文并人工复核</td>
+</tr>
+<tr>
+<td>表格或主题突然为空</td>
+<td>清除筛选，尤其检查搜索 ID、日期、来源、类型和复核状态</td>
+</tr>
+<tr>
+<td>历史数据高潜力为 0</td>
+<td>正常；旧反馈不应被当成当前新观众意向</td>
+</tr>
+<tr>
+<td>评论看起来像到访评价，却显示到访待核实</td>
+<td>规则没有找到明确的到访表达；不等于评论被判定为虚假，可结合原文人工判断</td>
+</tr>
+<tr>
+<td>改博物馆名称后匹配没变</td>
+<td>当前匹配主要依赖资源关键词；名称变更不等于已更新资源语义</td>
+</tr>
+<tr>
+<td>改资源后方案还是旧内容</td>
+<td>进入工作台重新生成；若已有重要手工修改，先复制或导出</td>
+</tr>
+<tr>
+<td>“保存方案”后别人看不到</td>
+<td>保存位置是你的浏览器，不是共享数据库；请导出后自行分享</td>
+</tr>
+<tr>
+<td>复制按钮未成功</td>
+<td>浏览器可能限制剪贴板；可手动选择文本复制，或导出 Markdown</td>
+</tr>
+<tr>
+<td>评分较高，仍显示待核实</td>
+<td>检查证据覆盖、来源类型、时效、历史身份和其他门槛；高分不等于到访概率</td>
+</tr>
+</tbody>
+</table>
+<h2 id="12">12. 完整体验检查表</h2>
+<ul>
+<li>[ ] 打开首页并确认原始发布时间范围，没有把旧评论当成实时趋势。</li>
+<li>[ ] 找到真实评论 <code>FS21677282-238</code>，核对 PDF 第 34 页的原文。</li>
+<li>[ ] 看懂主题、历史身份、五维解释、缺失证据和资源限制。</li>
+<li>[ ] 调整一次权重，并重置默认。</li>
+<li>[ ] 修改一次资源关键词，观察匹配变化，并按需要恢复。</li>
+<li>[ ] 体验人工复核，理解“保留记录”和“不参与机会聚合”的区别。</li>
+<li>[ ] 清除单条搜索，汇总亲子主题并查看多条证据。</li>
+<li>[ ] 生成并人工修改一份营销方案，保存、复制或导出。</li>
+<li>[ ] 用明确标为假设的数值体验点击率沙盘。</li>
+<li>[ ] 按需获取一次 HN 评论，核对请求记录与原文；接口无结果或失败时如实记录。</li>
+<li>[ ] 导出本次所需的记录、主题结果和方案。</li>
+</ul>
+<p>完成以上步骤，就走通了“资源建模 → 评论载入 → 规则分析 → 人工复核 → 主题洞察 → 营销草案 → 指标验证设计”的当前工作流程。真实投放及到馆效果验证尚需在系统外开展。</p>
+<h2 id="a">附录 A：研究数据出处与使用边界</h2>
+<p>Cano Sanchiz, Juan Manuel (2022). <em>Comments posted by Chinese (Mafengwo) and foreign (TripAdvisor) visitors</em>. Figshare. <a href="https://doi.org/10.6084/m9.figshare.21677282">DOI: 10.6084/m9.figshare.21677282</a>。作者标注 <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>。</p>
+<p>本项目仅提取附件 PDF 第 2—36 页的中文原评部分，评论对象为中国工业博物馆、中国铁道博物馆正阳门展馆、云南铁路博物馆和北京汽车博物馆；不混入英文机器翻译或重复评论。处理包括移除昵称/等级头、合并换行、删除页脚数字、正文哈希去重及邮箱/手机号脱敏，没有补写或生成评论。</p>
+<p>研究附件载入日期为 2026-10-25，不是评论发布日期。原平台景点链接不是逐条评论永久链接，应结合附件页码和记录序号复核。系统未独立确认评论者身份或每位评论者的授权，商业复用需核查相关权利。原文中的旧票价、开放时间、设备与服务状况不代表当前事实。</p>
+<p>HN 使用 <a href="https://hn.algolia.com/api">HN Search 公开接口</a>。读取 comment 类型，排除招聘主题等，移除 HTML，不保留作者字段，不自动翻译；原内容仍按原作者及平台条款使用。</p>
+<h2 id="b">附录 B：开发者运行与部署</h2>
+<p>源码仓库：<a href="https://github.com/hxuzhe/museradar-ai">hxuzhe/museradar-ai</a>，保持私有；网站由 GitHub Pages 发布 <code>dist/</code>。仓库访问权与网站公开访问是两回事。</p>
+<p>需要 Node.js 22 或更新版本。本项目没有第三方构建依赖：</p>
+<pre><code class="language-sh">npm run dev
+</code></pre>
+<p>本地预览地址为 <code>http://localhost:4173</code>。</p>
+<pre><code class="language-sh">npm run build
+</code></pre>
+<p>构建命令运行数据、渲染和静态资源检查。向 <code>main</code> 提交更新后，GitHub Actions 会先检查，再自动发布网站。</p>
+<table>
+<thead>
+<tr>
+<th>文件 / 目录</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dist/data.js</code></td>
+<td>示例馆资料、资源与主题词典</td>
+</tr>
+<tr>
+<td><code>dist/real-reviews.json</code>、<code>dist/real-reviews.js</code></td>
+<td>可追溯研究评论快照</td>
+</tr>
+<tr>
+<td><code>dist/provenance.json</code></td>
+<td>数据处理、许可与文件哈希</td>
+</tr>
+<tr>
+<td><code>dist/engine.js</code></td>
+<td>意图、评分、资源匹配与聚合规则</td>
+</tr>
+<tr>
+<td><code>dist/sources.js</code></td>
+<td>HN 公开检索和去重</td>
+</tr>
+<tr>
+<td><code>dist/app.js</code>、<code>dist/evidence-ui.js</code>、<code>dist/style.css</code></td>
+<td>六页界面、证据展示与样式</td>
+</tr>
+<tr>
+<td><code>research/</code></td>
+<td>研究原附件及文本提取结果；不随网站发布</td>
+</tr>
+<tr>
+<td><code>scripts/</code></td>
+<td>数据复现、本地预览与检查</td>
+</tr>
+<tr>
+<td><code>.github/workflows/pages.yml</code></td>
+<td>GitHub Pages 自动部署</td>
+</tr>
+</tbody>
+</table>
+<p>研究数据可通过以下步骤复现：</p>
+<pre><code class="language-sh">pdftotext -layout research/source.pdf research/source.txt
+python scripts/extract-real-reviews.py
+</code></pre>
+<p>站点使用相对资源路径和 Hash 导航，适配 GitHub Pages 仓库子路径。<code>render.yaml</code> 仅保留为将来的可选配置，当前没有成功创建 Render 站点，也没有绑定支付卡。未来接入中文平台授权数据、LLM、Embedding、共享数据库及真实投放归因，需要另行实现服务端能力；私密密钥不得写入前端。</p><footer>本指南说明当前已上线功能。公开研究快照、在线公开评论、示例馆藏和规则分析各有边界，请结合原始证据使用。</footer></article></div></body></html>
