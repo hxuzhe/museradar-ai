@@ -7,4 +7,4 @@ node_modules/
 *.log
 .DS_Store
 Thumbs.db
-`n%USERPROFILE%/
+%USERPROFILE%/

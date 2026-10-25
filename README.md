@@ -59,3 +59,13 @@ localStorage 仅当前浏览器保留数据和复核，非数据库。真实 API
 全部 dist/ 文件沿用已有 MuseRadar 版本，迁移不改变界面、数据、评分或实时检索逻辑。网站换域名后，浏览器 localStorage 不会自动跨域迁移，因此原站上手动修改的馆藏、已保存方案、在线读取的评论和复核记录应先从原站导出；新站默认加载 256 条真实研究评论。
 
 GitHub 仓库保留源码和来源附件。Render 只发布 dist/，不发布研究原 PDF、测试脚本、Git 历史或部署配置。Render 生成的实际 onrender.com 地址应以部署成功结果为准，不能仅凭服务名预先推断。
+
+## 当前正式部署：GitHub Pages
+
+按用户选择，现改为 GitHub Pages，不绑定 Render 支付卡。GitHub 已接受从此私有仓库启用 Pages。
+
+网址： https://hxuzhe.github.io/museradar-ai/
+
+main 分支更新后，Deploy MuseRadar to GitHub Pages 工作流先执行全部检查，再上传 dist 并部署。源码仓库保持私有，只有 dist 内网页资产通过网站公开。render.yaml 保留为未来可选配置，不代表已成功创建 Render 服务。
+
+原 Render 尝试在支付卡身份验证处停止，没有绑定支付卡，也没有购买付费实例。本站使用与原 MuseRadar 相同的前端文件、256 条真实中文历史评论与 HN 公开检索；没有用 SignalDesk 的后端替换本项目逻辑。
