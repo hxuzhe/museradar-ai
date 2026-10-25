@@ -1,0 +1,10 @@
+import {readFile,readdir} from 'node:fs/promises';
+import assert from 'node:assert/strict';
+const names=await readdir(new URL('../dist/',import.meta.url));
+for(const name of ['index.html','app.js','engine.js','data.js','real-reviews.js','real-reviews.json','provenance.json','sources.js','evidence-ui.js','style.css'])assert.ok(names.includes(name),'Missing static asset: '+name);
+const html=await readFile(new URL('../dist/index.html',import.meta.url),'utf8');
+assert.ok(html.includes('./app.js')&&html.includes('./style.css'));
+assert.ok(!html.includes('localhost'));
+const rows=JSON.parse(await readFile(new URL('../dist/real-reviews.json',import.meta.url),'utf8'));
+assert.equal(rows.length,256);
+console.log('PASS: static deployment assets and 256 source-backed reviews.');
