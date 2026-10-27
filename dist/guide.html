@@ -1,5 +1,6 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MuseRadar AI · 完整操作指南 2.0</title><style>body{margin:0;color:#213b4d;background:#f5f8fa;font:15px/1.9 system-ui,"Microsoft YaHei",sans-serif}header{background:#112d40;padding:25px 6%;color:white}header a{color:#8ce4cc;margin-right:20px}.layout{max-width:1280px;margin:28px auto;display:grid;grid-template-columns:235px minmax(0,1fr);gap:30px;padding:0 24px}aside{position:sticky;top:20px;align-self:start;font-size:12px;max-height:90vh;overflow:auto}aside ul{padding-left:18px}a{color:#007f6d;text-decoration:none}main{background:white;padding:35px 45px;border:1px solid #e0e9ee;border-radius:12px;min-width:0}h1{font-size:25px}h2{font-size:21px;padding-top:24px;border-top:1px solid #e7eef1;scroll-margin-top:20px}h3{font-size:17px}p,li{overflow-wrap:anywhere}blockquote{background:#eaf6f1;border-left:4px solid #20a080;margin:20px 0;padding:12px 20px}table{border-collapse:collapse;width:100%;font-size:13px}td,th{border:1px solid #dce7ec;padding:10px;text-align:left}th{background:#edf5f3}pre{overflow:auto;background:#f0f4f7;padding:18px;border-radius:7px}code{font-size:13px}.top-links{margin-top:10px}@media(max-width:800px){.layout{display:block;padding:0 12px}aside{position:static;max-height:none;margin-bottom:20px}main{padding:22px}table{display:block;overflow:auto}}@media print{aside,header{display:none}.layout{display:block;margin:0}main{border:0;padding:0}}</style></head><body><header><strong>MuseRadar AI · 使用指南 2.0</strong><div class="top-links"><a href="./">打开工作台 →</a><a href="./README.md" download>下载 Markdown</a></div></header><div class="layout"><aside><div class="toc">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MuseRadar AI · 完整操作指南 2.1</title><style>body{margin:0;color:#213b4d;background:#f5f8fa;font:15px/1.9 system-ui,"Microsoft YaHei",sans-serif}header{background:#112d40;padding:25px 6%;color:white}header a{color:#8ce4cc;margin-right:20px}.layout{max-width:1280px;margin:28px auto;display:grid;grid-template-columns:235px minmax(0,1fr);gap:30px;padding:0 24px}aside{position:sticky;top:20px;align-self:start;font-size:12px;max-height:90vh;overflow:auto}aside ul{padding-left:18px}a{color:#007f6d;text-decoration:none}main{background:white;padding:35px 45px;border:1px solid #e0e9ee;border-radius:12px;min-width:0}h1{font-size:25px}h2{font-size:21px;padding-top:24px;border-top:1px solid #e7eef1;scroll-margin-top:20px}h3{font-size:17px}p,li{overflow-wrap:anywhere}blockquote{background:#eaf6f1;border-left:4px solid #20a080;margin:20px 0;padding:12px 20px}table{border-collapse:collapse;width:100%;font-size:13px}td,th{border:1px solid #dce7ec;padding:10px;text-align:left}th{background:#edf5f3}pre{overflow:auto;background:#f0f4f7;padding:18px;border-radius:7px}code{font-size:13px}.top-links{margin-top:10px}@media(max-width:800px){.layout{display:block;padding:0 12px}aside{position:static;max-height:none;margin-bottom:20px}main{padding:22px}table{display:block;overflow:auto}}@media print{aside,header{display:none}.layout{display:block;margin:0}main{border:0;padding:0}}</style></head><body><header><strong>MuseRadar AI · 使用指南 2.1</strong><div class="top-links"><a href="./">打开工作台 →</a><a href="./README.md" download>下载 Markdown</a></div></header><div class="layout"><aside><div class="toc">
 <ul>
+<li><a href="#0-deepseek">0. 新增：三步可视化连接 DeepSeek</a></li>
 <li><a href="#1">1. 先了解数据和能力边界</a></li>
 <li><a href="#2">2. 无需模型，先体验一遍完整流程</a></li>
 <li><a href="#3">3. 第一步：选择数据与连续获取</a></li>
@@ -9,7 +10,7 @@
 <li><a href="#7">7. 第三步：阅读整个范围，形成需求画像</a></li>
 <li><a href="#8">8. 第四步：按画像生成宣传方案</a></li>
 <li><a href="#9">9. 保存、备份和恢复</a></li>
-<li><a href="#10-ai">10. 真实 AI 后端配置（模型可稍后接入）</a></li>
+<li><a href="#10">10. 高级选项：后端环境变量配置（可跳过）</a></li>
 <li><a href="#11-github-pages">11. 本机开发和 GitHub Pages 部署</a></li>
 <li><a href="#12">12. 数据出处与常见问题</a></li>
 </ul>
@@ -20,6 +21,19 @@
 <blockquote>
 <p>当前真实 AI 已完成可配置接口，但尚未配置或购买模型服务。AI 未连接时显示待分析，不会伪造结果。可以主动切换至「本地规则与模板演示」体验流程。规则和模板不会消耗模型 token。</p>
 </blockquote>
+<h2 id="0-deepseek">0. 新增：三步可视化连接 DeepSeek</h2>
+<p><strong>Windows 上最省事的方式：打开项目文件夹，双击根目录的 <code>Start-MuseRadar.cmd</code>。</strong> 需要 Node.js 22 或以上；无需安装额外项目依赖，不必先填环境变量。</p>
+<ol>
+<li>启动器自动运行本机前后端并打开浏览器。启动窗口保持打开，关闭后服务停止；端口冲突会换用后续端口，以窗口中地址为准。</li>
+<li>向导第一步选择「在我的电脑上使用」，点击「检测并继续」。本机同源会话自动连接，不用复制后端令牌。</li>
+<li>第二步默认 DeepSeek Flash，根地址 <code>https://api.deepseek.com</code>，模型 <code>deepseek-flash</code> 已预填。你只需粘贴自己的 API Key，再点击「保存到我的后端」。<a href="https://api-docs.deepseek.com/quick_start">官方配置说明</a>。</li>
+<li>默认只在后端当前运行期间保留；Windows 可主动勾选「记住配置」，使用 Windows 当前用户的 DPAPI 加密保存到 <code>.local/museradar/model-settings.dpapi</code>，不是明文文件，不加入 GitHub，不进入浏览器备份。换电脑或 Windows 用户通常无法解密，需要重新配置。</li>
+<li>第三步区分「后端可访问」「配置已填写」「真实 API 测试已通过」。点击「测试真实 API 连接」才发送一条固定验证消息，产生少量模型 token 费用，不上传评论；单纯保存不会调用模型。</li>
+<li>测试通过后点击「完成，开始分析」。建议先分析少量评论，检查结构化结果和判断依据。</li>
+</ol>
+<p>没有真实密钥时可以打开向导查看，但不能伪造连接成功。余额不足、密钥错误、模型或地址错误、限流、网络超时会显示对应说明。</p>
+<p><strong>继续使用线上 GitHub Pages：</strong> 点击「连接 AI · 三步向导」，选择「连接已经部署的后端」，填写自己后端的 HTTPS 地址和访问令牌。不要把 DeepSeek 地址当作项目后端地址。模型配置步骤仅对显式启用网页配置的新版后端开放（服务器设置 <code>ALLOW_UI_CONFIG=1</code>）；否则由管理员用环境变量配置。云端通过网页保存只在当前进程有效，不擅自把密钥写入服务器文件。</p>
+<p>一键启动器只运行你电脑上的工作台，不会部署云端后端，也不会把本机数据自动同步到线上网址。需要迁移评论、复核和方案时使用工作空间备份。网页不能自行执行电脑上的启动脚本；须先取得完整项目源码，不能只下载单个启动文件。</p>
 <h2 id="1">1. 先了解数据和能力边界</h2>
 <ul>
 <li>内置 <strong>256 条真实中文历史评论</strong>，来自四家博物馆的公开研究转录，原评日期 2013—2020 年，不是实时抓取，不代表近期需求。</li>
@@ -150,11 +164,11 @@
 <li>新版首次打开会迁移旧版真实数据工作空间中的评论、资源和复核状态；旧版模板方案保留在旧存储中，不混为新版群体方案。</li>
 <li>「连接设置 → 数据保存与备份」可导出完整工作空间，再恢复到新版。<strong>完整备份只能来自可信来源</strong>，其中包含本地来源声明、人工判断和方案。</li>
 <li>恢复会替换当前工作空间，先备份再确认。导出评论 JSON 不是完整备份，重新按评论导入也不会恢复原有信任标签。</li>
-<li>后端访问令牌仅存网页会话，不保存或导出；刷新后需重新填写。模型密钥始终只在服务端。</li>
+<li>后端访问令牌仅存网页会话，不保存或导出；独立后端刷新后需重新填写。本机启动器同源会话自动连接。模型密钥仅临时经过输入框并传给你选择的后端，不进入浏览器持久存储或备份。</li>
 <li>不支持多设备同步或云端用户账户。不要清理浏览器数据后期待自动恢复。</li>
 </ul>
-<h2 id="10-ai">10. 真实 AI 后端配置（模型可稍后接入）</h2>
-<p>前端继续部署 GitHub Pages，后端源码位于 <code>server/index.mjs</code>，无额外运行依赖，需要 Node.js 22 或以上。后端不是 GitHub Pages 的一部分，GitHub Pages 不会执行服务端程序。</p>
+<h2 id="10">10. 高级选项：后端环境变量配置（可跳过）</h2>
+<p>推荐个人使用上面的双击启动器和可视化向导。以下为管理员或独立部署说明：前端继续部署 GitHub Pages，后端源码位于 <code>server/index.mjs</code>，无额外运行依赖，需要 Node.js 22 或以上。后端不是 GitHub Pages 的一部分，GitHub Pages 不会执行服务端程序。</p>
 <p>启动：</p>
 <pre><code class="language-text">npm run backend
 </code></pre>
@@ -199,6 +213,10 @@
 <tr>
 <td><code>DATA_DIR</code></td>
 <td>后端分析结果缓存目录，独立部署时挂载持久存储</td>
+</tr>
+<tr>
+<td><code>ALLOW_UI_CONFIG</code></td>
+<td>独立后端设为 <code>1</code> 才开放经过令牌保护的网页模型配置；默认关闭</td>
 </tr>
 <tr>
 <td><code>MODEL_MAX_OUTPUT_TOKENS</code></td>

@@ -1,0 +1,8 @@
+import {readFile} from 'node:fs/promises';
+import {resolve,extname,sep} from 'node:path';
+import {fileURLToPath} from 'node:url';
+const root=resolve(fileURLToPath(new URL('../dist/',import.meta.url)));
+const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.md':'text/markdown; charset=utf-8'};
+export function localRequest(req){const socketLocal=['127.0.0.1','::1','::ffff:127.0.0.1'].includes(req.socket.remoteAddress),host=req.headers.host||'',allowed=['127.0.0.1:'+req.socket.localPort,'localhost:'+req.socket.localPort];return socketLocal&&allowed.includes(host);}
+export function sameOriginLocal(req){return localRequest(req)&&req.headers['sec-fetch-site']==='same-origin'&&(!req.headers.origin||req.headers.origin==='http://'+req.headers.host);}
+export async function serveLocal(req,res){if(!localRequest(req))return false;const url=new URL(req.url,'http://localhost');if(req.method!=='GET'||url.pathname.startsWith('/api/'))return false;let path;try{path=resolve(root,'.'+decodeURIComponent(url.pathname==='/'?'/index.html':url.pathname));if(!path.startsWith(root+sep)||!types[extname(path)])return false;const bytes=await readFile(path);res.setHeader('Content-Type',types[extname(path)]);res.setHeader('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://hn.algolia.com https://api.stackexchange.com https: http://127.0.0.1:* http://localhost:*; frame-ancestors 'none'; object-src 'none'; base-uri 'self'");res.end(bytes);return true;}catch{return false;}}

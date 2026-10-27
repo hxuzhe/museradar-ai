@@ -12,3 +12,6 @@ MODEL_MAX_OUTPUT_TOKENS=10000
 # For a local open model exposing compatible chat/completions:
 # MODEL_BASE_URL=http://127.0.0.1:11434/v1
 # MODEL_AUTH_OPTIONAL=1
+
+# Optional for a deployed, operator-token-protected backend. Default off.
+# ALLOW_UI_CONFIG=1
