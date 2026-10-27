@@ -12,5 +12,5 @@ let server,port=config.port;
 for(let attempt=0;attempt<5;attempt++){server=createApp(config);try{await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(port,'127.0.0.1',resolve);});break;}catch(e){if(e.code!=='EADDRINUSE'||attempt===4)throw e;port++;}}
 const url='http://127.0.0.1:'+port+'/?setup=1#overview';
 console.log('\nMuseRadar AI is ready: '+url+'\nKeep this window open. Press Ctrl+C to stop.\nConfigure DeepSeek in the browser. No model key is printed.');
-if(!process.argv.includes('--no-open')){if(process.platform==='win32'){const command="Start-Process -FilePath '"+url+"'";const child=spawn('powershell.exe',['-NoProfile','-NonInteractive','-Command',command],{windowsHide:true,stdio:'ignore'});child.on('error',()=>console.log('Open the local URL in your browser.'));}else console.log('Open the local URL in your browser.');}
+if(!process.argv.includes('--no-open')){if(process.platform==='win32'){const child=spawn('rundll32.exe',['url.dll,FileProtocolHandler',url],{windowsHide:true,stdio:'ignore'});child.on('error',()=>console.log('Open the local URL in your browser.'));}else console.log('Open the local URL in your browser.');}
 process.on('SIGINT',()=>server.close(()=>process.exit(0)));
