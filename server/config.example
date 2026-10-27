@@ -1,0 +1,14 @@
+# Copy required values into your hosting provider environment settings, or set
+# them in your shell. Never commit an actual credential.
+HOST=127.0.0.1
+PORT=8787
+MODEL_BASE_URL=https://your-provider.example/v1
+MODEL_NAME=your-model-name
+MODEL_API_KEY=configure-only-on-server
+API_ACCESS_TOKEN=generate-your-own-long-random-operator-token
+ALLOWED_ORIGINS=https://hxuzhe.github.io,http://127.0.0.1:4173,http://localhost:4173
+DATA_DIR=.local/museradar
+MODEL_MAX_OUTPUT_TOKENS=10000
+# For a local open model exposing compatible chat/completions:
+# MODEL_BASE_URL=http://127.0.0.1:11434/v1
+# MODEL_AUTH_OPTIONAL=1
