@@ -1,6 +1,7 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MuseRadar AI · 完整操作指南 2.1</title><style>body{margin:0;color:#213b4d;background:#f5f8fa;font:15px/1.9 system-ui,"Microsoft YaHei",sans-serif}header{background:#112d40;padding:25px 6%;color:white}header a{color:#8ce4cc;margin-right:20px}.layout{max-width:1280px;margin:28px auto;display:grid;grid-template-columns:235px minmax(0,1fr);gap:30px;padding:0 24px}aside{position:sticky;top:20px;align-self:start;font-size:12px;max-height:90vh;overflow:auto}aside ul{padding-left:18px}a{color:#007f6d;text-decoration:none}main{background:white;padding:35px 45px;border:1px solid #e0e9ee;border-radius:12px;min-width:0}h1{font-size:25px}h2{font-size:21px;padding-top:24px;border-top:1px solid #e7eef1;scroll-margin-top:20px}h3{font-size:17px}p,li{overflow-wrap:anywhere}blockquote{background:#eaf6f1;border-left:4px solid #20a080;margin:20px 0;padding:12px 20px}table{border-collapse:collapse;width:100%;font-size:13px}td,th{border:1px solid #dce7ec;padding:10px;text-align:left}th{background:#edf5f3}pre{overflow:auto;background:#f0f4f7;padding:18px;border-radius:7px}code{font-size:13px}.top-links{margin-top:10px}@media(max-width:800px){.layout{display:block;padding:0 12px}aside{position:static;max-height:none;margin-bottom:20px}main{padding:22px}table{display:block;overflow:auto}}@media print{aside,header{display:none}.layout{display:block;margin:0}main{border:0;padding:0}}</style></head><body><header><strong>MuseRadar AI · 使用指南 2.1</strong><div class="top-links"><a href="./">打开工作台 →</a><a href="./README.md" download>下载 Markdown</a></div></header><div class="layout"><aside><div class="toc">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MuseRadar AI · 完整操作指南 3.1</title><style>body{margin:0;color:#213b4d;background:#f5f8fa;font:15px/1.9 system-ui,"Microsoft YaHei",sans-serif}header{background:#112d40;padding:25px 6%;color:white}header a{color:#8ce4cc;margin-right:20px}.layout{max-width:1280px;margin:28px auto;display:grid;grid-template-columns:235px minmax(0,1fr);gap:30px;padding:0 24px}aside{position:sticky;top:20px;align-self:start;font-size:12px;max-height:90vh;overflow:auto}aside ul{padding-left:18px}a{color:#007f6d;text-decoration:none}main{background:white;padding:35px 45px;border:1px solid #e0e9ee;border-radius:12px;min-width:0}h1{font-size:25px}h2{font-size:21px;padding-top:24px;border-top:1px solid #e7eef1;scroll-margin-top:20px}h3{font-size:17px}p,li{overflow-wrap:anywhere}blockquote{background:#eaf6f1;border-left:4px solid #20a080;margin:20px 0;padding:12px 20px}table{border-collapse:collapse;width:100%;font-size:13px}td,th{border:1px solid #dce7ec;padding:10px;text-align:left}th{background:#edf5f3}pre{overflow:auto;background:#f0f4f7;padding:18px;border-radius:7px}code{font-size:13px}.top-links{margin-top:10px}@media(max-width:800px){.layout{display:block;padding:0 12px}aside{position:static;max-height:none;margin-bottom:20px}main{padding:22px}table{display:block;overflow:auto}}@media print{aside,header{display:none}.layout{display:block;margin:0}main{border:0;padding:0}}</style></head><body><header><strong>MuseRadar AI · 使用指南 3.1</strong><div class="top-links"><a href="./">打开工作台 →</a><a href="./README.md" download>下载 Markdown</a></div></header><div class="layout"><aside><div class="toc">
 <ul>
-<li><a href="#0-deepseek">0. 新增：三步可视化连接 DeepSeek</a></li>
+<li><a href="#ai">直接在网站使用 AI（无需配置）</a></li>
+<li><a href="#0">0. 可选：使用自己的模型或本机运行</a></li>
 <li><a href="#1">1. 先了解数据和能力边界</a></li>
 <li><a href="#2">2. 无需模型，先体验一遍完整流程</a></li>
 <li><a href="#3">3. 第一步：选择数据与连续获取</a></li>
@@ -15,14 +16,60 @@
 <li><a href="#12">12. 数据出处与常见问题</a></li>
 </ul>
 </div>
-</aside><main><h1 id="museradar-ai-20">MuseRadar AI · 完整操作指南（2.0）</h1>
+</aside><main><h1 id="museradar-ai-31">MuseRadar AI · 完整操作指南（3.1）</h1>
 <p><strong>入口：<a href="https://hxuzhe.github.io/museradar-ai/">打开工作台</a> · <a href="https://hxuzhe.github.io/museradar-ai/guide.html">阅读网页版指南</a></strong></p>
 <p>MuseRadar AI 帮助博物馆整理真实评论、识别需求、形成需求画像，并据此制定宣传方案。新版按「获取 → 分析 → 画像 → 方案」四步操作，不需要在六个独立模块里寻找下一步。</p>
 <blockquote>
-<p>当前真实 AI 已完成可配置接口，但尚未配置或购买模型服务。AI 未连接时显示待分析，不会伪造结果。可以主动切换至「本地规则与模板演示」体验流程。规则和模板不会消耗模型 token。</p>
+<p>网站现提供共享 DeepSeek AI：访客无需登录、无需 API Key，也无需本机程序。密钥保存在独立云端后端；打开网页、连接访客会话和查看用量不调用模型。仅点击分析或生成方案后才调用，受频率、并发和共享用量限制。</p>
 </blockquote>
-<h2 id="0-deepseek">0. 新增：三步可视化连接 DeepSeek</h2>
-<p><strong>Windows 上最省事的方式：打开项目文件夹，双击根目录的 <code>Start-MuseRadar.cmd</code>。</strong> 需要 Node.js 22 或以上；无需安装额外项目依赖，不必先填环境变量。</p>
+<h2 id="ai">直接在网站使用 AI（无需配置）</h2>
+<ol>
+<li>打开 GitHub Pages 原网址。网站会自动连接公开 AI 后台，不要求课堂密码或 API Key。</li>
+<li>点击「网站 AI · 查看用量」，确认访客连接和本次剩余额度。</li>
+<li>在数据中心获取真实评论或导入获授权数据，进入分析页面；先搜索一个内容 ID 或缩小日期范围，再点击 AI 分析。</li>
+<li>分析有效评论后，在需求画像中选择整个群体，生成 AI 宣传方案。内置历史评论仍不代表近期到访需求。</li>
+<li>模型结果保留证据与不确定性，必须人工核查。可切回规则演示；两种方式始终标明。</li>
+</ol>
+<p>共享服务默认限制：</p>
+<table>
+<thead>
+<tr>
+<th>范围</th>
+<th style="text-align: right;">上限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>同一网络出口</td>
+<td style="text-align: right;">每分钟 6 次 AI 操作</td>
+</tr>
+<tr>
+<td>全站并发模型请求</td>
+<td style="text-align: right;">2 个</td>
+</tr>
+<tr>
+<td>全站每天模型调用</td>
+<td style="text-align: right;">100 次</td>
+</tr>
+<tr>
+<td>全站每天 token 保守记账</td>
+<td style="text-align: right;">500000 tokens</td>
+</tr>
+<tr>
+<td>同一网络每天提交评论 / 方案</td>
+<td style="text-align: right;">120 条 / 6 份</td>
+</tr>
+<tr>
+<td>每个 4 小时访客会话评论 / 方案</td>
+<td style="text-align: right;">30 条 / 1 份</td>
+</tr>
+</tbody>
+</table>
+<p>每日按北京时间重置。模型请求前预留用量，成功后按供应商返回用量调整；失败和未知用量可能保留预留值，所以不是实际账单。并发通过持久化租约控制，刷新或创建新会话不会重置全站预算；同一校园 Wi-Fi 可能共享网络额度。超过限制会提示，不自动切换假 AI 或补造评论。</p>
+<p><strong>首次调用验证：</strong> 已检查公开连接、代码与限额，但未用所有者密钥发送测试推理；密钥有效性、余额及真实模型输出需由所有者首次点击分析确认。网站不会在打开、登录或状态检查时自动消耗模型 token。</p>
+<p>GitHub 仓库保持私密，前端继续在 GitHub Pages。实际 AI 通过所有者已授权的独立 OpenAI Sites 后端执行，密钥作为运行时秘密配置，不在源码、前端、备份或导出中。该服务的网络可达性和模型供应商可用性仍受网络及服务状态影响。</p>
+<h2 id="0">0. 可选：使用自己的模型或本机运行</h2>
+<p><strong>以下仅供所有者或自备模型的用户使用，普通访客无需操作。Windows 本机运行方式：打开项目文件夹，双击根目录的 <code>Start-MuseRadar.cmd</code>。</strong> 需要 Node.js 22 或以上；无需安装额外项目依赖，不必先填环境变量。</p>
 <ol>
 <li>启动器自动运行本机前后端并打开浏览器。启动窗口保持打开，关闭后服务停止；端口冲突会换用后续端口，以窗口中地址为准。</li>
 <li>向导第一步选择「在我的电脑上使用」，点击「检测并继续」。本机同源会话自动连接，不用复制后端令牌。</li>
@@ -86,8 +133,8 @@
 <p>导入内容统一显示「来源未核实」，不会因为填写了某个平台名就变成系统认证来源。缺少日期的评论可查看和分析，但不会混入近期画像。</p>
 <h2 id="5">5. 第二步：分析、五档筛选与人工复核</h2>
 <p>点击 <strong>「02 分析与五档筛选」</strong>。</p>
-<h3 id="ai">真实 AI 模式</h3>
-<p>先在「连接设置」配置独立后端，再点击「用 AI 分析当前筛选 N 条」。后端模型尚未配置时会明确提示。每批处理少量评论，逐批保存；已经有效完成的评论不重复调用。失败原因可查看，继续分析会处理仍未完成的内容。</p>
+<h3 id="ai_1">真实 AI 模式</h3>
+<p>网站共享 AI 自动连接；使用个人模型时才需配置独立后端。点击「用 AI 分析当前筛选 N 条」。后端模型尚未配置时会明确提示。每批处理少量评论，逐批保存；已经有效完成的评论不重复调用。失败原因可查看，继续分析会处理仍未完成的内容。</p>
 <p>模型输出同时包含情绪、意愿、主题、需求、证据、资源和不确定性。证据必须逐字存在于原文，资源 ID 必须存在于知识库，否则该条失败待重试。该校验不能保证模型理解一定正确，仍需人工评估。</p>
 <h3 id="_1">五档意愿</h3>
 <table>
@@ -257,6 +304,6 @@ npm run backend
 <li><strong>为什么勾选五档后列表为空？</strong> AI 未分析、历史反馈或无关内容没有五档评级。检查分析模式、特殊状态和其他筛选。</li>
 <li><strong>为什么获取停了？</strong> 查看任务错误、配额和完整性提示。恢复接口额度或网络后继续，不能把部分结果视为全平台数据。</li>
 <li><strong>为什么只支持三个社区？</strong> 这三个已验证能返回评论。其他社区须先验证访问和内容适用性，不把未接通平台包装成可用入口。</li>
-<li><strong>方案真的由 AI 生成吗？</strong> 仅在连接模型并完成真实调用后，才标记真实 AI；规则模式明确显示模板演示。</li>
+<li><strong>方案真的由 AI 生成吗？</strong> 仅在模型实际返回成功分析或方案后，才把对应结果标记真实 AI；规则模式明确显示模板演示。</li>
 <li><strong>如何开始商业化？</strong> 先替换为真实馆方资料，使用获授权且适用的数据，建立人工评估及活动效果反馈；当前版本不声称具备已验证商业效果。</li>
 </ul></main></div></body></html>
