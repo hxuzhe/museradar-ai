@@ -1,9 +1,9 @@
 import {ClassroomService,classroomError,digest,randomToken,verifyPassword,passwordRecord} from './classroom-auth.mjs';
-export const publicDefaults={requestsPerMinute:6,commentsPerNetworkDay:120,plansPerNetworkDay:6,sessionHours:4,commentsPerSession:30,plansPerSession:1,summariesPerSession:20,requestsPerSession:40,dailyCalls:100,dailyTokens:500000,concurrency:2,enabled:true};
+export const publicDefaults={requestsPerMinute:20,commentsPerNetworkDay:600,plansPerNetworkDay:6,sessionHours:4,commentsPerSession:200,plansPerSession:1,summariesPerSession:20,requestsPerSession:100,dailyCalls:100,dailyTokens:500000,concurrency:2,enabled:true};
 export const publicDay=now=>new Date(now+8*3600000).toISOString().slice(0,10);
 export class PublicAIService extends ClassroomService {
  constructor(store,settings,network,salt){super(store,settings);this.network=network||'shared-network';this.salt=salt;}
- async configuration(){return {...publicDefaults,...this.settings(),...await this.store.get('settings'),version:'public-v1'};}
+ async configuration(){let stored=await this.store.get('settings');if(stored&&stored.quotaRevision!=='200-v1')stored=await this.store.update('settings',old=>{if(old?.quotaRevision==='200-v1')return old;const next={...old,quotaRevision:'200-v1'};for(const [key,previous,value]of [['commentsPerSession',30,200],['commentsPerNetworkDay',120,600],['requestsPerSession',40,100],['requestsPerMinute',6,20]])if(next[key]===previous)next[key]=value;return next;});return {...publicDefaults,...this.settings(),...stored,version:'public-v1'};}
  async networkKey(){if(!this.salt)throw classroomError('公开 AI 防护尚未配置',503);return digest(this.network+'|'+this.salt);}
  async issue(now=Date.now()){
   const config=await this.configuration();if(!config.enabled)throw classroomError('网站 AI 暂时关闭，请稍后再试',503);const network=await this.networkKey();
@@ -25,7 +25,7 @@ export class PublicAIService extends ClassroomService {
  async usage(token){const {session,config}=await this.authenticate(token),authorized=await this.isAuthorized(session,config),limits=this.publicLimits(config);if(authorized)for(const field of ['comments','plans','summaries','requests','commentsPerNetworkDay','plansPerNetworkDay'])limits[field]=null;return {expiresAt:new Date(session.expires).toISOString(),accessMode:authorized?'authorized':'visitor',authorizationAvailable:!!config.authorizedPassword,used:{comments:session.comments,plans:session.plans,summaries:session.summaries,requests:session.requests},limits,dailyCalls:config.dailyCalls,dailyTokens:config.dailyTokens};}
  async consume(token,kind,amount=1,now=Date.now()){
   const info=await this.authenticate(token,now),network=await this.networkKey(),authorized=await this.isAuthorized(info.session,info.config);
-  await this.store.update('rate:'+network+':'+Math.floor(now/60000),old=>{if((old?.n||0)>=info.config.requestsPerMinute)throw classroomError('此网络操作较频繁，请一分钟后再试',429);return {n:(old?.n||0)+1,expires:now+120000};});
+  await this.store.update('rate:'+network+':'+Math.floor(now/60000),old=>{if((old?.n||0)>=info.config.requestsPerMinute)throw Object.assign(classroomError('此网络操作较频繁，请等待下一分钟，系统将自动继续',429),{code:'RATE_LIMIT',retryAfterSeconds:Math.ceil((60000-now%60000)/1000)+1});return {n:(old?.n||0)+1,expires:now+120000};});
   if(!authorized&&['comments','plans'].includes(kind))await this.store.update('network:'+network+':'+publicDay(now),old=>{const row=old||{comments:0,plans:0},limit=kind==='comments'?info.config.commentsPerNetworkDay:info.config.plansPerNetworkDay;if(row[kind]+amount>limit)throw classroomError('此网络今日体验额度已用完，请明日再试',429);return {...row,[kind]:row[kind]+amount};});
   const field=kind,limit=({comments:info.config.commentsPerSession,plans:info.config.plansPerSession,summaries:info.config.summariesPerSession})[kind];if(limit===undefined)throw classroomError('操作类型无效');
   await this.store.update(info.key,row=>{if(!row||row.expires<now)throw classroomError('访客会话已过期',401);if(!authorized&&(row.requests>=info.config.requestsPerSession||row[field]+amount>limit))throw classroomError('本次访客会话体验额度已达上限',429);return {...row,[field]:row[field]+amount,requests:row.requests+1};});return info;

@@ -1,6 +1,6 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MuseRadar AI · 完整操作指南 3.3</title><style>body{margin:0;color:#213b4d;background:#f5f8fa;font:15px/1.9 system-ui,"Microsoft YaHei",sans-serif}header{background:#112d40;padding:25px 6%;color:white}header a{color:#8ce4cc;margin-right:20px}.layout{max-width:1280px;margin:28px auto;display:grid;grid-template-columns:235px minmax(0,1fr);gap:30px;padding:0 24px}aside{position:sticky;top:20px;align-self:start;font-size:12px;max-height:90vh;overflow:auto}aside ul{padding-left:18px}a{color:#007f6d;text-decoration:none}main{background:white;padding:35px 45px;border:1px solid #e0e9ee;border-radius:12px;min-width:0}h1{font-size:25px}h2{font-size:21px;padding-top:24px;border-top:1px solid #e7eef1;scroll-margin-top:20px}h3{font-size:17px}p,li{overflow-wrap:anywhere}blockquote{background:#eaf6f1;border-left:4px solid #20a080;margin:20px 0;padding:12px 20px}table{border-collapse:collapse;width:100%;font-size:13px}td,th{border:1px solid #dce7ec;padding:10px;text-align:left}th{background:#edf5f3}pre{overflow:auto;background:#f0f4f7;padding:18px;border-radius:7px}code{font-size:13px}.top-links{margin-top:10px}@media(max-width:800px){.layout{display:block;padding:0 12px}aside{position:static;max-height:none;margin-bottom:20px}main{padding:22px}table{display:block;overflow:auto}}@media print{aside,header{display:none}.layout{display:block;margin:0}main{border:0;padding:0}}</style></head><body><header><strong>MuseRadar AI · 使用指南 3.3</strong><div class="top-links"><a href="./">打开工作台 →</a><a href="./README.md" download>下载 Markdown</a></div></header><div class="layout"><aside><div class="toc">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MuseRadar AI · 使用指南 3.4</title><style>body{margin:0;color:#213b4d;background:#f5f8fa;font:15px/1.9 system-ui,"Microsoft YaHei",sans-serif}header{background:#112d40;padding:25px 6%;color:white}header a{color:#8ce4cc;margin-right:20px}.layout{max-width:1280px;margin:28px auto;display:grid;grid-template-columns:235px minmax(0,1fr);gap:30px;padding:0 24px}aside{position:sticky;top:20px;align-self:start;font-size:12px;max-height:90vh;overflow:auto}aside ul{padding-left:18px}a{color:#007f6d;text-decoration:none}main{background:white;padding:35px 45px;border:1px solid #e0e9ee;border-radius:12px;min-width:0}h1{font-size:25px}h2{font-size:21px;padding-top:24px;border-top:1px solid #e7eef1;scroll-margin-top:20px}h3{font-size:17px}p,li{overflow-wrap:anywhere}blockquote{background:#eaf6f1;border-left:4px solid #20a080;margin:20px 0;padding:12px 20px}table{border-collapse:collapse;width:100%;font-size:13px}td,th{border:1px solid #dce7ec;padding:10px;text-align:left}th{background:#edf5f3}pre{overflow:auto;background:#f0f4f7;padding:18px;border-radius:7px}code{font-size:13px}.top-links{margin-top:10px}@media(max-width:800px){.layout{display:block;padding:0 12px}aside{position:static;max-height:none;margin-bottom:20px}main{padding:22px}table{display:block;overflow:auto}}@media print{aside,header{display:none}.layout{display:block;margin:0}main{border:0;padding:0}}</style></head><body><header><strong>MuseRadar AI · 使用指南 3.4</strong><div class="top-links"><a href="./">打开工作台 →</a><a href="./README.md" download>下载 Markdown</a></div></header><div class="layout"><aside><div class="toc">
 <ul>
-<li><a href="#museradar-ai-33">MuseRadar AI 使用指南 3.3</a><ul>
+<li><a href="#museradar-ai-34">MuseRadar AI 使用指南 3.4</a><ul>
 <li><a href="#1">1. 开始前</a></li>
 <li><a href="#2">2. 确认博物馆资源</a></li>
 <li><a href="#3">3. 获取在线评论</a></li>
@@ -14,12 +14,12 @@
 </li>
 </ul>
 </div>
-</aside><main><h1 id="museradar-ai-33">MuseRadar AI 使用指南 3.3</h1>
+</aside><main><h1 id="museradar-ai-34">MuseRadar AI 使用指南 3.4</h1>
 <p>网站：https://hxuzhe.github.io/museradar-ai/</p>
 <p>面向博物馆运营人员的观众需求研究工具。当前使用虚构示例馆资源和公开社区实际返回的评论，不预载历史研究评论、不生成假评论。公开社区以英文讨论为主，不代表中国博物馆观众。</p>
 <h2 id="1">1. 开始前</h2>
 <p>打开网站后自动连接网站提供的 AI 后台，无需填写个人 API Key。点击“网站 AI · 查看用量”查看普通访客额度；有访问密码时可进入授权模式。</p>
-<p>普通访客每个会话最多分析 30 条评论、生成 1 份方案；同一网络每日 120 条评论、6 份方案。授权模式解除上述体验额度，但两种模式均保留同一网络每分钟 6 次操作、全站并发 2 个请求、全站每日 100 次模型调用和 500000 tokens 保守上限。费用由网站所有者的模型账户承担。</p>
+<p>普通访客每个会话最多分析 200 条评论、生成 1 份方案；同一网络每日 600 条评论、6 份方案。授权模式解除上述体验额度，但两种模式均保留同一网络每分钟 20 次操作、全站并发 2 个请求、全站每日 100 次模型调用和 500000 tokens 保守上限。费用由网站所有者的模型账户承担。</p>
 <p>密码只由后台验证，不写入浏览器工作空间或 GitHub；退出授权或会话过期后需要重新验证。查看用量、授权、词云都不调用模型。</p>
 <h2 id="2">2. 确认博物馆资源</h2>
 <p>在“博物馆知识库”编辑名称、展览、活动、参与条件和摄影等限制。当前为虚构示例馆，真实营销前请替换为馆方确认的资料。修改后旧分析需重算，旧方案会显示过期。</p>
@@ -37,7 +37,7 @@
 <p>在数据中心向下滚动查看“全部已载入评论 · 词云”。统计全部已载入的非手动测试评论，不受表格分页或筛选影响；获取、导入或删除后自动更新。点击词语查看相关评论；可导出词频 CSV 或下载词云 SVG。</p>
 <p>词云使用本地中英文分词、文化词典和停用词表，不消耗模型 token；字号反映出现次数，不代表情绪、到访意愿或 AI 用户画像。</p>
 <h2 id="6-ai">6. AI 判别与五档筛选</h2>
-<p>进入“02 分析与五档筛选”，可按任务、正文、来源、日期、主题、情绪及审核状态缩小范围，点击“用 AI 分析当前筛选”。模型每批处理最多 5 条，依次执行，失败保留原因。先分析少量评论确认服务可用，再扩大范围。</p>
+<p>进入“02 分析与五档筛选”，可按任务、正文、来源、日期、主题、情绪及审核状态缩小范围，点击“用 AI 分析当前筛选”。一次会话可分析 200 条；模型每批处理最多 5 条，依次执行并自动控制请求间隔。共享网络触发频率限制时按后台给定等待时间自动重试，最多 3 次，可随时暂停。会话/每日额度和全站预算耗尽不会自动重试；失败保留原因。先分析少量评论确认服务可用，再扩大范围。</p>
 <p>评论判别使用内置提示词并关闭思考。五档依次为明确排斥、意愿较弱、一般兴趣、潜在体验需求、明确未来参观计划。已参观、无关、证据不足单独标识，不强行分档。正面情绪不等于未来参观意愿；英文证据保留原文，解释使用中文。</p>
 <p>点击“查看内置判别提示词原文”查看完整规则。点击评论可查看证据、不确定性、资源匹配和人工修正。五档可多选，所有筛选结果跨页面共享，不受每页 50 条限制。</p>
 <p>也可手动输入文本测试，但会标为手动来源，不冒充公开评论、不计入词云；该操作在 AI 模式下会调用模型。</p>
