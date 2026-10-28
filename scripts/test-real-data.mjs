@@ -1,5 +1,7 @@
 import assert from 'node:assert/strict';
-import {posts,resources} from '../dist/data.js';
+import {resources,posts as initialPosts} from '../dist/data.js';
+import {posts} from '../research/legacy-fixtures/real-reviews.js';
+assert.equal(initialPosts.length,0,'the product starts without bundled historical reviews');
 import {analyze,defaults} from '../dist/engine.js';
 import {safeUrl,dedupe,fetchPublicComments} from '../dist/sources.js';
 assert.equal(posts.length,256);

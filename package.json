@@ -1,6 +1,6 @@
 {
   "name": "museradar-ai",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "private": true,
   "type": "module",
   "description": "Source-backed museum audience intelligence demo",
@@ -8,7 +8,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "test": "node scripts/test-real-data.mjs && node scripts/test-render.mjs && node scripts/test-upgrade.mjs && node scripts/test-workspace-render.mjs && node scripts/test-ai-setup.mjs && node scripts/test-classroom.mjs && node scripts/test-public-ai.mjs && node scripts/test-v32.mjs",
+    "test": "node scripts/test-real-data.mjs && node scripts/test-render.mjs && node scripts/test-upgrade.mjs && node scripts/test-workspace-render.mjs && node scripts/test-ai-setup.mjs && node scripts/test-classroom.mjs && node scripts/test-public-ai.mjs && node scripts/test-v32.mjs && node scripts/test-tasks.mjs",
     "build": "npm test && node scripts/check-static.mjs",
     "dev": "node scripts/serve.mjs",
     "backend": "node server/index.mjs",

@@ -3,4 +3,5 @@ export const dictionaries=[['孩子','亲子','手作','动手','制作','小朋
 export const museum={name:'云川历史工艺博物馆',city:'云川市（虚构）',intro:'以青铜文明与传统工艺为特色的地方博物馆，所有资料均为虚构示例。',categories:'青铜器、陶器、地方历史',features:'古代制造技术与沉浸式历史展厅',focus:'传统工艺亲子体验',audience:'亲子家庭、文化爱好者、周末休闲',hours:'周二至周日 09:00—17:00，周一闭馆',ticket:'常设展免费；手作活动 30 元/人（演示）',booking:'提前预约，活动每场限 12 人',restrictions:'常设展可无闪光灯拍摄；禁止商业摄影；手作限 6 岁以上，儿童须监护人陪同'};
 const resourceNames=[['青铜礼器专题展','青铜 铸造 历史 文物'],['古代铸造工艺模型','铸造 工艺 制造 青铜'],['云川历史文化展厅','历史 文化 国风'],['传统工艺亲子体验','孩子 亲子 动手 制作 手作 周末'],['陶纹拓印工作坊','拓印 手作 工艺 亲子'],['儿童文物探索课','孩子 文物 知识 研学'],['汉代生活陈列','汉服 历史 文化'],['青铜纹样设计课','青铜 手作 制作'],['古城建筑模型','历史 国风 拍照'],['周末公益导览','周末 知识 文物'],['无障碍慢游路线','休闲 散步 放松'],['触摸工艺教学箱','孩子 工艺 学习 看不懂']];
 export const resources=resourceNames.map(([name,keywords],i)=>({id:'R'+String(i+1).padStart(2,'0'),name,keywords,type:i===3||i===4||i===7?'活动':'展览',intro:'通过实物、模型与讲解理解地方历史和古代工艺。',scenes:'文化学习、周末体验',audience:i===3?'6 岁以上亲子家庭':'文化兴趣观众',conditions:i===3?'提前预约；6 岁以上；监护人陪同':'开放时间内参观',limits:i===3?'每场 12 人；禁止接触高温材料':'禁止闪光灯及商业摄影'}));
-export {posts} from './real-reviews.js';
+// Start empty. Public comments are acquired online by collection tasks.
+export const posts=[];

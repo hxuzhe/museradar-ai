@@ -1,309 +1,54 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MuseRadar AI · 完整操作指南 3.2</title><style>body{margin:0;color:#213b4d;background:#f5f8fa;font:15px/1.9 system-ui,"Microsoft YaHei",sans-serif}header{background:#112d40;padding:25px 6%;color:white}header a{color:#8ce4cc;margin-right:20px}.layout{max-width:1280px;margin:28px auto;display:grid;grid-template-columns:235px minmax(0,1fr);gap:30px;padding:0 24px}aside{position:sticky;top:20px;align-self:start;font-size:12px;max-height:90vh;overflow:auto}aside ul{padding-left:18px}a{color:#007f6d;text-decoration:none}main{background:white;padding:35px 45px;border:1px solid #e0e9ee;border-radius:12px;min-width:0}h1{font-size:25px}h2{font-size:21px;padding-top:24px;border-top:1px solid #e7eef1;scroll-margin-top:20px}h3{font-size:17px}p,li{overflow-wrap:anywhere}blockquote{background:#eaf6f1;border-left:4px solid #20a080;margin:20px 0;padding:12px 20px}table{border-collapse:collapse;width:100%;font-size:13px}td,th{border:1px solid #dce7ec;padding:10px;text-align:left}th{background:#edf5f3}pre{overflow:auto;background:#f0f4f7;padding:18px;border-radius:7px}code{font-size:13px}.top-links{margin-top:10px}@media(max-width:800px){.layout{display:block;padding:0 12px}aside{position:static;max-height:none;margin-bottom:20px}main{padding:22px}table{display:block;overflow:auto}}@media print{aside,header{display:none}.layout{display:block;margin:0}main{border:0;padding:0}}</style></head><body><header><strong>MuseRadar AI · 使用指南 3.2</strong><div class="top-links"><a href="./">打开工作台 →</a><a href="./README.md" download>下载 Markdown</a></div></header><div class="layout"><aside><div class="toc">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MuseRadar AI · 完整操作指南 3.3</title><style>body{margin:0;color:#213b4d;background:#f5f8fa;font:15px/1.9 system-ui,"Microsoft YaHei",sans-serif}header{background:#112d40;padding:25px 6%;color:white}header a{color:#8ce4cc;margin-right:20px}.layout{max-width:1280px;margin:28px auto;display:grid;grid-template-columns:235px minmax(0,1fr);gap:30px;padding:0 24px}aside{position:sticky;top:20px;align-self:start;font-size:12px;max-height:90vh;overflow:auto}aside ul{padding-left:18px}a{color:#007f6d;text-decoration:none}main{background:white;padding:35px 45px;border:1px solid #e0e9ee;border-radius:12px;min-width:0}h1{font-size:25px}h2{font-size:21px;padding-top:24px;border-top:1px solid #e7eef1;scroll-margin-top:20px}h3{font-size:17px}p,li{overflow-wrap:anywhere}blockquote{background:#eaf6f1;border-left:4px solid #20a080;margin:20px 0;padding:12px 20px}table{border-collapse:collapse;width:100%;font-size:13px}td,th{border:1px solid #dce7ec;padding:10px;text-align:left}th{background:#edf5f3}pre{overflow:auto;background:#f0f4f7;padding:18px;border-radius:7px}code{font-size:13px}.top-links{margin-top:10px}@media(max-width:800px){.layout{display:block;padding:0 12px}aside{position:static;max-height:none;margin-bottom:20px}main{padding:22px}table{display:block;overflow:auto}}@media print{aside,header{display:none}.layout{display:block;margin:0}main{border:0;padding:0}}</style></head><body><header><strong>MuseRadar AI · 使用指南 3.3</strong><div class="top-links"><a href="./">打开工作台 →</a><a href="./README.md" download>下载 Markdown</a></div></header><div class="layout"><aside><div class="toc">
 <ul>
-<li><a href="#ai">直接在网站使用 AI（无需配置）</a></li>
-<li><a href="#0">0. 可选：使用自己的模型或本机运行</a></li>
-<li><a href="#1">1. 先了解数据和能力边界</a></li>
-<li><a href="#2">2. 无需模型，先体验一遍完整流程</a></li>
-<li><a href="#3">3. 第一步：选择数据与连续获取</a></li>
-<li><a href="#4">4. 导入自己的真实评论</a></li>
-<li><a href="#5">5. 第二步：分析、五档筛选与人工复核</a></li>
-<li><a href="#6">6. 维护博物馆知识库</a></li>
-<li><a href="#7">7. 第三步：阅读整个范围，形成需求画像</a></li>
-<li><a href="#8">8. 第四步：按画像生成宣传方案</a></li>
-<li><a href="#9">9. 保存、备份和恢复</a></li>
-<li><a href="#10">10. 高级选项：后端环境变量配置（可跳过）</a></li>
-<li><a href="#11-github-pages">11. 本机开发和 GitHub Pages 部署</a></li>
-<li><a href="#12">12. 数据出处与常见问题</a></li>
+<li><a href="#museradar-ai-33">MuseRadar AI 使用指南 3.3</a><ul>
+<li><a href="#1">1. 开始前</a></li>
+<li><a href="#2">2. 确认博物馆资源</a></li>
+<li><a href="#3">3. 获取在线评论</a></li>
+<li><a href="#4">4. 查看与删除任务</a></li>
+<li><a href="#5">5. 全部评论词云</a></li>
+<li><a href="#6-ai">6. AI 判别与五档筛选</a></li>
+<li><a href="#7-ab">7. 画像与 A/B 宣传方案</a></li>
+<li><a href="#8">8. 导入导出与数据保留</a></li>
+<li><a href="#9">9. 技术与验证边界</a></li>
+</ul>
+</li>
 </ul>
 </div>
-</aside><main><section><h2 id="v32">3.2 更新：词云、访问授权与思考模式</h2><p>“选择数据与获取”中新增全量评论词云，不受分页或筛选影响，排除手动测试文本；点击词语查看证据，支持导出词频 CSV 和 SVG。词频不代表情绪或到访意愿，数据包含历史反馈时会明确说明。</p><p>“网站 AI · 查看用量”提供普通访客与授权模式。普通访客无需密码即可使用；输入所有者提供的访问密码后，解除本次会话及同网络每日体验限额。授权不取消每分钟频率、全站并发和每日共享预算；退出授权或会话到期后需重新验证。密码只交后台验证，不存入浏览器或源码。</p><p>评论判别、证据整理关闭思考；最终群体宣传方案开启思考。词云、查看用量、输入密码均不调用模型。尚未执行真实付费推理测试。</p></section><h1 id="museradar-ai-31">MuseRadar AI · 完整操作指南（3.1）</h1>
-<p><strong>入口：<a href="https://hxuzhe.github.io/museradar-ai/">打开工作台</a> · <a href="https://hxuzhe.github.io/museradar-ai/guide.html">阅读网页版指南</a></strong></p>
-<p>MuseRadar AI 帮助博物馆整理真实评论、识别需求、形成需求画像，并据此制定宣传方案。新版按「获取 → 分析 → 画像 → 方案」四步操作，不需要在六个独立模块里寻找下一步。</p>
-<blockquote>
-<p>网站现提供共享 DeepSeek AI：访客无需登录、无需 API Key，也无需本机程序。密钥保存在独立云端后端；打开网页、连接访客会话和查看用量不调用模型。仅点击分析或生成方案后才调用，受频率、并发和共享用量限制。</p>
-</blockquote>
-<h2 id="ai">直接在网站使用 AI（无需配置）</h2>
-<ol>
-<li>打开 GitHub Pages 原网址。网站会自动连接公开 AI 后台，不要求课堂密码或 API Key。</li>
-<li>点击「网站 AI · 查看用量」，确认访客连接和本次剩余额度。</li>
-<li>在数据中心获取真实评论或导入获授权数据，进入分析页面；先搜索一个内容 ID 或缩小日期范围，再点击 AI 分析。</li>
-<li>分析有效评论后，在需求画像中选择整个群体，生成 AI 宣传方案。内置历史评论仍不代表近期到访需求。</li>
-<li>模型结果保留证据与不确定性，必须人工核查。可切回规则演示；两种方式始终标明。</li>
-</ol>
-<p>共享服务默认限制：</p>
-<table>
-<thead>
-<tr>
-<th>范围</th>
-<th style="text-align: right;">上限</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>同一网络出口</td>
-<td style="text-align: right;">每分钟 6 次 AI 操作</td>
-</tr>
-<tr>
-<td>全站并发模型请求</td>
-<td style="text-align: right;">2 个</td>
-</tr>
-<tr>
-<td>全站每天模型调用</td>
-<td style="text-align: right;">100 次</td>
-</tr>
-<tr>
-<td>全站每天 token 保守记账</td>
-<td style="text-align: right;">500000 tokens</td>
-</tr>
-<tr>
-<td>同一网络每天提交评论 / 方案</td>
-<td style="text-align: right;">120 条 / 6 份</td>
-</tr>
-<tr>
-<td>每个 4 小时访客会话评论 / 方案</td>
-<td style="text-align: right;">30 条 / 1 份</td>
-</tr>
-</tbody>
-</table>
-<p>每日按北京时间重置。模型请求前预留用量，成功后按供应商返回用量调整；失败和未知用量可能保留预留值，所以不是实际账单。并发通过持久化租约控制，刷新或创建新会话不会重置全站预算；同一校园 Wi-Fi 可能共享网络额度。超过限制会提示，不自动切换假 AI 或补造评论。</p>
-<p><strong>首次调用验证：</strong> 已检查公开连接、代码与限额，但未用所有者密钥发送测试推理；密钥有效性、余额及真实模型输出需由所有者首次点击分析确认。网站不会在打开、登录或状态检查时自动消耗模型 token。</p>
-<p>GitHub 仓库保持私密，前端继续在 GitHub Pages。实际 AI 通过所有者已授权的独立 OpenAI Sites 后端执行，密钥作为运行时秘密配置，不在源码、前端、备份或导出中。该服务的网络可达性和模型供应商可用性仍受网络及服务状态影响。</p>
-<h2 id="0">0. 可选：使用自己的模型或本机运行</h2>
-<p><strong>以下仅供所有者或自备模型的用户使用，普通访客无需操作。Windows 本机运行方式：打开项目文件夹，双击根目录的 <code>Start-MuseRadar.cmd</code>。</strong> 需要 Node.js 22 或以上；无需安装额外项目依赖，不必先填环境变量。</p>
-<ol>
-<li>启动器自动运行本机前后端并打开浏览器。启动窗口保持打开，关闭后服务停止；端口冲突会换用后续端口，以窗口中地址为准。</li>
-<li>向导第一步选择「在我的电脑上使用」，点击「检测并继续」。本机同源会话自动连接，不用复制后端令牌。</li>
-<li>第二步默认 DeepSeek Flash，根地址 <code>https://api.deepseek.com</code>，模型 <code>deepseek-flash</code> 已预填。你只需粘贴自己的 API Key，再点击「保存到我的后端」。<a href="https://api-docs.deepseek.com/quick_start">官方配置说明</a>。</li>
-<li>默认只在后端当前运行期间保留；Windows 可主动勾选「记住配置」，使用 Windows 当前用户的 DPAPI 加密保存到 <code>.local/museradar/model-settings.dpapi</code>，不是明文文件，不加入 GitHub，不进入浏览器备份。换电脑或 Windows 用户通常无法解密，需要重新配置。</li>
-<li>第三步区分「后端可访问」「配置已填写」「真实 API 测试已通过」。点击「测试真实 API 连接」才发送一条固定验证消息，产生少量模型 token 费用，不上传评论；单纯保存不会调用模型。</li>
-<li>测试通过后点击「完成，开始分析」。建议先分析少量评论，检查结构化结果和判断依据。</li>
-</ol>
-<p>没有真实密钥时可以打开向导查看，但不能伪造连接成功。余额不足、密钥错误、模型或地址错误、限流、网络超时会显示对应说明。</p>
-<p><strong>继续使用线上 GitHub Pages：</strong> 点击「连接 AI · 三步向导」，选择「连接已经部署的后端」，填写自己后端的 HTTPS 地址和访问令牌。不要把 DeepSeek 地址当作项目后端地址。模型配置步骤仅对显式启用网页配置的新版后端开放（服务器设置 <code>ALLOW_UI_CONFIG=1</code>）；否则由管理员用环境变量配置。云端通过网页保存只在当前进程有效，不擅自把密钥写入服务器文件。</p>
-<p>一键启动器只运行你电脑上的工作台，不会部署云端后端，也不会把本机数据自动同步到线上网址。需要迁移评论、复核和方案时使用工作空间备份。网页不能自行执行电脑上的启动脚本；须先取得完整项目源码，不能只下载单个启动文件。</p>
-<h2 id="1">1. 先了解数据和能力边界</h2>
-<ul>
-<li>内置 <strong>256 条真实中文历史评论</strong>，来自四家博物馆的公开研究转录，原评日期 2013—2020 年，不是实时抓取，不代表近期需求。</li>
-<li>当前馆「云川历史工艺博物馆」和 12 项资源是明确标注的虚构示例。真实评论与示例资源的匹配仅用于演示。</li>
-<li>在线支持 <strong>Hacker News、Travel Stack Exchange、History Stack Exchange 三个社区</strong>。后两者是两个独立社区、同一 API 体系；不等于三个不同平台。</li>
-<li>社区主要使用英语，不能据此直接代表中国本地博物馆的观众。是否可用于运营，需要结合样本相关性、地域和时间核实。</li>
-<li>没有小红书、微博、知乎、大众点评或马蜂窝实时接口；不会使用编造评论补足数量。</li>
-<li>系统不保存评论作者的用户名、联系方式或个人兴趣档案。公开内容仍须按来源许可和条款使用。</li>
-</ul>
-<h2 id="2">2. 无需模型，先体验一遍完整流程</h2>
-<ol>
-<li>打开首页，点击 <strong>「体验历史评论流程」</strong>。</li>
-<li>系统明确切到规则演示模式，选择历史研究窗口，并纳入历史反馈。</li>
-<li>在「需求画像」中查看亲子教育与互动、历史文化等需求群体。</li>
-<li>点击某一画像的 <strong>「查看全部 N 条证据」</strong>，进入评论列表，查看原文、来源和判断。</li>
-<li>点击「查看 / 修正」可以人工采用、排除或修改判断；修改档位必须填写理由和原文证据。</li>
-<li>返回「需求画像」，选择一个画像，点击 <strong>「为此画像制定方案」</strong>。</li>
-<li>在「宣传方案」点击 <strong>「生成群体方案（本地模板）」</strong>。这里明确不是 AI 生成。</li>
-<li>编辑方案后点击「保存编辑」，然后复制或导出 Markdown。</li>
-</ol>
-<p>这条路径只验证交互和历史体验研究，不声称发现了今天的新观众，也不声称使用了真实模型。</p>
-<h2 id="3">3. 第一步：选择数据与连续获取</h2>
-<p>点击左侧 <strong>「01 选择数据与获取」</strong>：</p>
-<ol>
-<li>选择社区；公开英语社区建议使用 <code>museum</code>、<code>railway museum</code> 等英文关键词。</li>
-<li>填写评论起止日期。留空表示不限起始 / 截止本次任务创建时间。任务范围固定，继续不会改变它。</li>
-<li>点击 <strong>「获取全部可访问结果」</strong>。</li>
-<li>系统自动翻页、按 ID 与正文去重，并逐页保存断点。无需反复点击下一页。</li>
-<li>观察任务中的请求数、响应评论数、新增数、重复数和排除数。</li>
-<li>如需停止，点击「暂停并保留进度」；之后点击任务的「继续 / 重试」。关闭网页也会停止运行，重新打开后可继续。</li>
-<li>获取结束后，点击「查看这些评论」，或「下一步：分析与分档」。</li>
-</ol>
-<p><strong>如何理解“全部”：</strong> 仅指所选范围内公开接口允许访问的结果，不保证全平台覆盖。HN 结果过多时按时间分片；单秒结果仍超过窗口时提示部分获取。Stack Exchange 先检索关键词匹配的问题，再读取问题下的评论，<strong>不包含回答及回答下的评论</strong>，也不是评论正文关键词搜索。公开接口会受索引、匿名分页和每日额度限制；遇到限制显示“部分获取 / 出错”，不能当作全量成功。</p>
-<p>“每页 50 条”只是评论列表的显示分页，不是获取或分析上限。表格筛选、导出和批量分析作用于全部符合条件的已保存评论。</p>
-<p>已有任务可以重复运行一个新的日期范围以更新数据。重复评论跳过，不生成新评论。任务创建和结果仅保存在当前浏览器，不是后台定时采集服务。</p>
-<h2 id="4">4. 导入自己的真实评论</h2>
-<p>在第一步点击 <strong>「导入 CSV / JSON」</strong>，选择文件，查看有效行、错误行、重复行及预览后，再确认导入。</p>
-<p>最小 JSON 格式：</p>
-<pre><code class="language-json">[
-  {
-    &quot;text&quot;: &quot;替换为你有权使用的真实评论原文&quot;,
-    &quot;date&quot;: &quot;2026-10-20&quot;,
-    &quot;platform&quot;: &quot;实际来源平台&quot;,
-    &quot;source&quot;: &quot;数据出处或取得方式&quot;,
-    &quot;sourceUrl&quot;: &quot;https://example.org/原文地址&quot;
-  }
-]
-</code></pre>
-<p>上述字符串只是字段说明，不是应用预置评论。CSV 使用同名列，至少有 <code>text</code>。<code>date</code> 若提供，必须为有效 <code>YYYY-MM-DD</code>。正文最长 15000 字符，额外个人身份字段不导入。导入时正文去重，邮箱和常见中国手机号隐去。</p>
-<p>导入内容统一显示「来源未核实」，不会因为填写了某个平台名就变成系统认证来源。缺少日期的评论可查看和分析，但不会混入近期画像。</p>
-<h2 id="5">5. 第二步：分析、五档筛选与人工复核</h2>
-<p>点击 <strong>「02 分析与五档筛选」</strong>。</p>
-<h3 id="ai_1">真实 AI 模式</h3>
-<p>网站共享 AI 自动连接；使用个人模型时才需配置独立后端。点击「用 AI 分析当前筛选 N 条」。后端模型尚未配置时会明确提示。每批处理少量评论，逐批保存；已经有效完成的评论不重复调用。失败原因可查看，继续分析会处理仍未完成的内容。</p>
-<p>模型输出同时包含情绪、意愿、主题、需求、证据、资源和不确定性。证据必须逐字存在于原文，资源 ID 必须存在于知识库，否则该条失败待重试。该校验不能保证模型理解一定正确，仍需人工评估。</p>
-<h3 id="_1">五档意愿</h3>
-<table>
-<thead>
-<tr>
-<th>档位</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>一档</td>
-<td>明确排斥</td>
-</tr>
-<tr>
-<td>二档</td>
-<td>意愿较弱，存在犹豫或参观障碍</td>
-</tr>
-<tr>
-<td>三档</td>
-<td>一般文化兴趣，尚无明确体验需求</td>
-</tr>
-<tr>
-<td>四档</td>
-<td>潜在体验需求</td>
-</tr>
-<tr>
-<td>五档</td>
-<td>明确未来参观意愿</td>
-</tr>
-</tbody>
-</table>
-<p><strong>已参观 / 历史反馈、无关、信息不足</strong>独立显示，不强制塞进五档。正面情绪不等于愿意参观，负面反馈也可能反映有价值的运营障碍。档位不是到馆概率。</p>
-<p>在表格上方勾选一个或多个档位，可筛选全部已保存评论。还能组合搜索、来源、情绪、主题、日期和人工审核。点击「清除全部筛选」回到所有评论。筛选会跨页面保留。</p>
-<p>点击「查看 / 修正」：查看高亮证据、原文出处、匹配资源和不确定性。人工可选择采用或排除；排除的评论保留原文，但不进入画像及方案。覆盖档位时要填写理由和逐字原文证据；保存后记录修改历史。可以清除覆盖，返回原有分析。</p>
-<p>文本测试框允许输入新内容，会明确标记为手动输入、来源未核实，不冒充公开评论。</p>
-<h2 id="6">6. 维护博物馆知识库</h2>
-<p>左侧「博物馆知识库」支持修改资料，新增、编辑和删除资源。关键词影响规则匹配，完整简介、场景、条件和限制也提供给真实模型。</p>
-<p>例如，先搜索真实记录 <code>FS21677282-238</code>：</p>
-<blockquote>
-<p>比较适合带孩子来，很多真车藏品和互动设备。</p>
-</blockquote>
-<p>这是一条 2019 年北京汽车博物馆的历史评论，不代表当前工作空间博物馆的真实评价。原文可在研究附件第 34 页记录 238 核对。</p>
-<p>在规则演示模式，给「儿童文物探索课」增加 <code>互动</code> 关键词，保存后查看该条的资源匹配变化；体验后可以改回。不要从「互动」擅自推断一定需要手作活动。</p>
-<p><strong>知识库、资源或评论发生变化后，旧 AI 结果失效，需重新分析；旧方案标为过期，保留原文但不能当作基于新数据的方案。</strong></p>
-<h2 id="7">7. 第三步：阅读整个范围，形成需求画像</h2>
-<p>点击 <strong>「03 需求画像」</strong>。默认最近 90 天，可改 30 天、半年或一年。历史研究需要主动选择历史窗口，并勾选「纳入历史体验研究」。</p>
-<p>此页面沿用共享筛选，展示范围内总数、人工排除、待分析、无关、待核实、历史反馈和有效分群。</p>
-<ul>
-<li>AI 模式先逐条判断，再按需求主题聚合，当前主题框架包括亲子教育与互动、摄影与空间体验、历史文化、工艺与制造技术、周末休闲、参观障碍。</li>
-<li>每个有效评论进入一个主要需求主题，不构造虚假的人口画像，不推断年龄或收入。</li>
-<li>画像显示讨论量、占比、五档分布、共同需求、匹配资源及代表原文。</li>
-<li>“查看全部 N 条证据”能返回完整成员列表，不只展示代表评论。</li>
-<li>无数据时显示无结果，不用历史评论制造近期增长率。</li>
-<li>只要范围内还有未分析、未排除的评论，就不能生成声称覆盖整体需求的 AI 方案。先完成或人工排除。</li>
-</ul>
-<p>不同模式的分群必须按其标签解释：规则演示是规则分群，真实 AI 模式是模型 / 人工判断后的聚合，不声称实现了 Embedding 聚类。</p>
-<h2 id="8">8. 第四步：按画像生成宣传方案</h2>
-<p>从需求画像选择「为此画像制定方案」，或进入 <strong>「04 宣传方案」</strong>选择画像。</p>
-<p>真实 AI 流程：</p>
-<ol>
-<li>确认范围内全部有效评论已有判断。</li>
-<li>点击「AI 阅读群体证据并生成」。</li>
-<li>逐批输入该画像的全部评论和判断，提炼每条需求、障碍和证据。</li>
-<li>检查每批的成员 ID，防止遗漏；大群体进行多层摘要，最后生成整体方案。</li>
-<li>显示实际覆盖成员数、生成方式、模型和时间。</li>
-</ol>
-<p>这不是把单条评论包装成整个群体，也不承诺把无限多原文一次塞入模型上下文。每条都进入处理流程，汇总会压缩信息，仍需人工检查。</p>
-<p>方案包含机会描述、需求群体、推荐资源、内容切入点、A/B 文案、平台关键词、运营建议和效果指标。须人工核对馆藏、日期、预约、票价与活动限制后使用。模型语义约束仍可能出错，自动校验不能代替馆方审核。</p>
-<p>可编辑、保存、复制和导出 Markdown。重新生成会提示覆盖旧方案。证据或资源变化时显示过期。实验计算器仅按手填假设值计算点击率，不是已完成的真实投放。</p>
-<h2 id="9">9. 保存、备份和恢复</h2>
-<ul>
-<li>使用 IndexedDB 保存当前浏览器的评论、任务、复核和方案，支持比原本小容量设置更大的数据。</li>
-<li>新版首次打开会迁移旧版真实数据工作空间中的评论、资源和复核状态；旧版模板方案保留在旧存储中，不混为新版群体方案。</li>
-<li>「连接设置 → 数据保存与备份」可导出完整工作空间，再恢复到新版。<strong>完整备份只能来自可信来源</strong>，其中包含本地来源声明、人工判断和方案。</li>
-<li>恢复会替换当前工作空间，先备份再确认。导出评论 JSON 不是完整备份，重新按评论导入也不会恢复原有信任标签。</li>
-<li>后端访问令牌仅存网页会话，不保存或导出；独立后端刷新后需重新填写。本机启动器同源会话自动连接。模型密钥仅临时经过输入框并传给你选择的后端，不进入浏览器持久存储或备份。</li>
-<li>不支持多设备同步或云端用户账户。不要清理浏览器数据后期待自动恢复。</li>
-</ul>
-<h2 id="10">10. 高级选项：后端环境变量配置（可跳过）</h2>
-<p>推荐个人使用上面的双击启动器和可视化向导。以下为管理员或独立部署说明：前端继续部署 GitHub Pages，后端源码位于 <code>server/index.mjs</code>，无额外运行依赖，需要 Node.js 22 或以上。后端不是 GitHub Pages 的一部分，GitHub Pages 不会执行服务端程序。</p>
-<p>启动：</p>
-<pre><code class="language-text">npm run backend
-</code></pre>
-<p>默认 <code>http://127.0.0.1:8787</code>，未配置模型时 <code>/api/status</code> 显示 <code>configured:false</code>，AI 操作失败并提示，绝不补造结果。</p>
-<p>在服务器环境变量设置以下内容（参考 <code>server/config.example</code>）：</p>
-<table>
-<thead>
-<tr>
-<th>变量</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>MODEL_BASE_URL</code></td>
-<td>兼容 chat/completions 的接口根地址，例如供应商提供的 <code>/v1</code> 地址</td>
-</tr>
-<tr>
-<td><code>MODEL_NAME</code></td>
-<td>供应商的实际模型名称</td>
-</tr>
-<tr>
-<td><code>MODEL_API_KEY</code></td>
-<td>只在服务器设置的模型密钥</td>
-</tr>
-<tr>
-<td><code>API_ACCESS_TOKEN</code></td>
-<td>自行生成的长随机操作者访问令牌；前端连接时填写，不是模型密钥</td>
-</tr>
-<tr>
-<td><code>ALLOWED_ORIGINS</code></td>
-<td>允许的前端来源，逗号分隔。Pages 来源为 <code>https://hxuzhe.github.io</code>，不带仓库路径</td>
-</tr>
-<tr>
-<td><code>HOST</code></td>
-<td>默认本机 <code>127.0.0.1</code>；独立部署时按宿主环境要求设置</td>
-</tr>
-<tr>
-<td><code>PORT</code></td>
-<td>默认 8787</td>
-</tr>
-<tr>
-<td><code>DATA_DIR</code></td>
-<td>后端分析结果缓存目录，独立部署时挂载持久存储</td>
-</tr>
-<tr>
-<td><code>ALLOW_UI_CONFIG</code></td>
-<td>独立后端设为 <code>1</code> 才开放经过令牌保护的网页模型配置；默认关闭</td>
-</tr>
-<tr>
-<td><code>MODEL_MAX_OUTPUT_TOKENS</code></td>
-<td>输出上限，默认 10000；供应商不支持时按其能力调整</td>
-</tr>
-</tbody>
-</table>
-<p>兼容接口需要支持文本消息和 JSON 文本输出。真实调用可能产生费用；网站显示分析条数，但未接供应商账单或价格，不声称能够精确估算费用。已校验的分析可复用后端缓存，失败可以重试；更换模型名或资源会使缓存键变化。</p>
-<p>本机开源模型可设置 <code>MODEL_BASE_URL=http://127.0.0.1:11434/v1</code>、实际 <code>MODEL_NAME</code> 和 <code>MODEL_AUTH_OPTIONAL=1</code>；仍须设置后端 <code>API_ACCESS_TOKEN</code>。项目不自动下载安装模型。</p>
-<p>首次配置后，在网站「连接设置」填后端地址和操作者令牌，保存检查。显示后端可达但模型未配置时，须在服务端继续配置；令牌或模型密钥不要写入 GitHub 文件。</p>
-<p>公开前端连接本机 HTTP 服务可能受浏览器本地网络权限和 HTTPS 限制。最可靠的本机体验方式是同时运行 <code>npm run dev</code>，从 <code>http://127.0.0.1:4173</code> 打开前端；公开使用需独立 HTTPS 后端。此版本没有自动购买或部署后端托管服务。</p>
-<p>后端有精确来源检查、访问令牌、请求大小限制和并发限制，结果缓存于服务器。它是单操作者演示后端，不是已完成的多租户商业服务。公开商业部署还需用户鉴权、租户隔离、费用预算、审计、队列及数据库。</p>
-<h2 id="11-github-pages">11. 本机开发和 GitHub Pages 部署</h2>
-<pre><code class="language-text">npm test
-npm run build
-npm run dev
-npm run backend
-</code></pre>
-<p><code>npm run dev</code> 服务 <code>dist/</code>。运行后端另开一个终端；复制配置示例不会自动加载环境变量，需在启动终端或托管平台设置。</p>
-<p>文件分层：</p>
-<ul>
-<li><code>dist/workspace.js</code>：四步界面和交互。</li>
-<li><code>dist/collectors.js</code>：公开来源、分页断点、去重。</li>
-<li><code>dist/domain.js</code>：五档、结果验证、人工覆盖、有效范围与画像聚合。</li>
-<li><code>dist/ai-client.js</code>：前端到独立后端的接口。</li>
-<li><code>dist/storage.js</code>：IndexedDB 保存与旧数据迁移。</li>
-<li><code>server/index.mjs</code>：真实模型代理、结构化校验、缓存、群体摘要与方案生成。</li>
-<li><code>dist/real-reviews.*</code>、<code>dist/provenance.json</code>：真实研究快照与来源说明。</li>
-<li><code>dist/app.js</code>、<code>dist/engine.js</code>：保留的第一版源码；新版主入口不再展示旧百分制。</li>
-</ul>
-<p>所有资源使用相对路径，适配 GitHub Pages 仓库子路径。<code>.github/workflows/pages.yml</code> 检查通过后发布静态前端；后端必须另行运行。</p>
-<p>自动化测试包括多页获取、分片、断点和失败、五档筛选、历史意愿隔离、模型引文与资源校验、缓存失效、完整证据覆盖、后端鉴权，以及两种模式下六个页面的渲染。模型链路使用隔离的测试替身验证，不等于已接通真实模型。</p>
-<h2 id="12">12. 数据出处与常见问题</h2>
-<p>内置研究来源：Juan Manuel Cano Sanchiz（2022），<em>Comments posted by Chinese (Mafengwo) and foreign (TripAdvisor) visitors</em>，DOI <a href="https://doi.org/10.6084/m9.figshare.21677282">10.6084/m9.figshare.21677282</a>，许可 CC BY 4.0。当前使用中文原评部分，移除昵称和级别、合并 PDF 换行、去重，保留日期、所属馆、页码和记录号。下载及处理时间见 <code>provenance.json</code>。</p>
-<ul>
-<li><strong>为什么来源筛选只有 Figshare？</strong> 来源筛选展示已经载入的内容；在线社区要在获取表单中选择并实际获取，成功后才会出现在筛选列表里。</li>
-<li><strong>为什么没有近期画像？</strong> 内置是旧评论。请获取近期内容、导入有日期的数据，或主动进入历史研究；不会补造近期样本。</li>
-<li><strong>为什么勾选五档后列表为空？</strong> AI 未分析、历史反馈或无关内容没有五档评级。检查分析模式、特殊状态和其他筛选。</li>
-<li><strong>为什么获取停了？</strong> 查看任务错误、配额和完整性提示。恢复接口额度或网络后继续，不能把部分结果视为全平台数据。</li>
-<li><strong>为什么只支持三个社区？</strong> 这三个已验证能返回评论。其他社区须先验证访问和内容适用性，不把未接通平台包装成可用入口。</li>
-<li><strong>方案真的由 AI 生成吗？</strong> 仅在模型实际返回成功分析或方案后，才把对应结果标记真实 AI；规则模式明确显示模板演示。</li>
-<li><strong>如何开始商业化？</strong> 先替换为真实馆方资料，使用获授权且适用的数据，建立人工评估及活动效果反馈；当前版本不声称具备已验证商业效果。</li>
-</ul></main></div></body></html>
+</aside><main><h1 id="museradar-ai-33">MuseRadar AI 使用指南 3.3</h1>
+<p>网站：https://hxuzhe.github.io/museradar-ai/</p>
+<p>面向博物馆运营人员的观众需求研究工具。当前使用虚构示例馆资源和公开社区实际返回的评论，不预载历史研究评论、不生成假评论。公开社区以英文讨论为主，不代表中国博物馆观众。</p>
+<h2 id="1">1. 开始前</h2>
+<p>打开网站后自动连接网站提供的 AI 后台，无需填写个人 API Key。点击“网站 AI · 查看用量”查看普通访客额度；有访问密码时可进入授权模式。</p>
+<p>普通访客每个会话最多分析 30 条评论、生成 1 份方案；同一网络每日 120 条评论、6 份方案。授权模式解除上述体验额度，但两种模式均保留同一网络每分钟 6 次操作、全站并发 2 个请求、全站每日 100 次模型调用和 500000 tokens 保守上限。费用由网站所有者的模型账户承担。</p>
+<p>密码只由后台验证，不写入浏览器工作空间或 GitHub；退出授权或会话过期后需要重新验证。查看用量、授权、词云都不调用模型。</p>
+<h2 id="2">2. 确认博物馆资源</h2>
+<p>在“博物馆知识库”编辑名称、展览、活动、参与条件和摄影等限制。当前为虚构示例馆，真实营销前请替换为馆方确认的资料。修改后旧分析需重算，旧方案会显示过期。</p>
+<h2 id="3">3. 获取在线评论</h2>
+<p>进入“01 选择数据与获取”，选择 Hacker News、Travel Stack Exchange 或 History Stack Exchange，输入英文关键词，例如 museum，设置起止日期后点击“获取全部可访问结果”。课堂演示建议先选择最近一周。</p>
+<p>系统按公开接口自动翻页、去重并保存进度。Travel 与 History 先检索相关问题，再获取问题下评论，正文不一定直接出现关键词。页面显示请求次数、响应数量、新增、重复、排除及错误；中断后可以继续或重试。</p>
+<p>“已取完”只表示当前接口在选定范围内可访问的结果已经取完，不保证覆盖全平台。在线获取是现场请求接口，不表示每条评论刚刚发表；日期仍按原始发布时间记录。</p>
+<p>新版初始评论为零。旧浏览器中的内置历史评论会自动清理，已获取的公开讨论保留。不再提供历史快照加载入口。</p>
+<h2 id="4">4. 查看与删除任务</h2>
+<p>每个任务提供“查看本任务评论”或“继续 / 重试”，以及“删除任务及评论”。查看只筛选本任务关联的评论，不再将同一平台的所有任务混在一起。</p>
+<p>点击删除后先预览将移除的独占评论数及保留的共享评论数，确认后删除任务、独占评论、对应分析与人工审核，并清理引用被删评论的已保存方案。词云、KPI、画像立即重算。多个任务共同获取的评论会保留到最后一个任务删除；独立导入数据不会随获取任务删除。</p>
+<p>可在当前页面“撤销上次删除”，只保留一次撤销机会，刷新后失效；模型已产生的费用不返还。运行中请先暂停任务。</p>
+<p>旧版本未记录精确归属的任务，会按来源、日期、关键词及采集时间恢复关联并标记“旧任务”。删除前请核对数量；未能确定归属的评论不会自动删除。新任务从第一次响应开始记录精确的评论 ID，包括重复评论的共享归属。</p>
+<h2 id="5">5. 全部评论词云</h2>
+<p>在数据中心向下滚动查看“全部已载入评论 · 词云”。统计全部已载入的非手动测试评论，不受表格分页或筛选影响；获取、导入或删除后自动更新。点击词语查看相关评论；可导出词频 CSV 或下载词云 SVG。</p>
+<p>词云使用本地中英文分词、文化词典和停用词表，不消耗模型 token；字号反映出现次数，不代表情绪、到访意愿或 AI 用户画像。</p>
+<h2 id="6-ai">6. AI 判别与五档筛选</h2>
+<p>进入“02 分析与五档筛选”，可按任务、正文、来源、日期、主题、情绪及审核状态缩小范围，点击“用 AI 分析当前筛选”。模型每批处理最多 5 条，依次执行，失败保留原因。先分析少量评论确认服务可用，再扩大范围。</p>
+<p>评论判别使用内置提示词并关闭思考。五档依次为明确排斥、意愿较弱、一般兴趣、潜在体验需求、明确未来参观计划。已参观、无关、证据不足单独标识，不强行分档。正面情绪不等于未来参观意愿；英文证据保留原文，解释使用中文。</p>
+<p>点击“查看内置判别提示词原文”查看完整规则。点击评论可查看证据、不确定性、资源匹配和人工修正。五档可多选，所有筛选结果跨页面共享，不受每页 50 条限制。</p>
+<p>也可手动输入文本测试，但会标为手动来源，不冒充公开评论、不计入词云；该操作在 AI 模式下会调用模型。</p>
+<h2 id="7-ab">7. 画像与 A/B 宣传方案</h2>
+<p>进入“03 需求画像”，选择最近 30 / 90 / 180 / 365 天窗口。先完成范围内所有评论的分析或人工排除，再查看群体共同需求。在线评论中的过去参观反馈仍会单独识别，不当作新需求。</p>
+<p>点击某个画像“为此画像制定方案”，进入“04 宣传方案”，点击“AI 阅读群体证据并生成”。证据整理关闭思考，最终方案开启 DeepSeek 思考模式，综合该群体全部有效评论的摘要，生成机会描述、资源、内容切入点、A/B 文案、渠道假设及验证指标。</p>
+<p>方案可编辑、保存、复制和导出 Markdown。A/B 文案尚未真实投放，不保证转化效果；摄影、开放时间、活动、票价等承诺必须由馆方审核，宣传覆盖没有投放数据时标为待核实。</p>
+<h2 id="8">8. 导入导出与数据保留</h2>
+<p>保留 CSV / JSON 导入功能，用于合法授权的数据。每条至少有 text，可提供 date、source、platform、sourceUrl、evidenceUrl；导入前显示错误及预览，来源保持未核实。额外用户名和联系方式字段不导入，正文联系方式会隐去。</p>
+<p>数据保存在当前浏览器，换设备不会自动同步。导出评论、分析、画像和方案用于备份。任务删除只影响当前浏览器的数据；在线原始评论及其他人的工作空间不受影响。</p>
+<h2 id="9">9. 技术与验证边界</h2>
+<p>前端独立部署到 GitHub Pages；AI 密钥仅由云端后台保管。六个页面共享当前工作空间状态，后台保留频率、并发与共享预算保护。没有接入未经授权的平台抓取，也不建立可识别个人的广告名单。</p>
+<p>隔离测试覆盖接口翻页、去重、分类验证、授权、预算、思考模式及任务删除。开发期间未进行真实付费推理验证，真实模型是否可调用仍取决于账户余额、服务可用性及供应商限制。</p>
+<p>历史研究数据只作为仓库 research/legacy-fixtures 下的回归测试资料保留，不随网站页面加载。新旧版本变化见 docs/2026-10-28-v33.md。</p></main></div></body></html>
