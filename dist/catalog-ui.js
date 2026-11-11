@@ -1,3 +1,4 @@
+import {migrateMuseumCase} from './data.js?v=20261111-nju';
 import {opportunityExamples,opportunityLabels} from './opportunity.js';
 
 const columns=['名称','年代','类别','详细介绍','馆藏编号','别名'];
@@ -49,7 +50,7 @@ export function createCatalog({getState,client,esc,modal,persist,render,toast,do
   const {resources}=getState(),exhibits=resources.filter(isExhibit),counts=new Map();
   for(const r of exhibits)for(const term of keywords(r))counts.set(term,(counts.get(term)||0)+1);
   const words=[...counts].sort((a,b)=>b[1]-a[1]);
-  const tiles=items=>items.map(r=>`<article class="panel">${image(r)?`<img class="catalog-image" src="${image(r)}" alt="${esc(r.name)}">`:''}<h3>${esc(r.name)}</h3><p>${esc([r.type,r.era,r.category,r.theme].filter(Boolean).join(' · '))}</p><p>${esc(r.intro||'')}</p>${r.start?`<p>${esc(r.start)} 至 ${esc(r.end)}</p>`:''}${r.memberIds?.length?`<p>${esc(r.memberIds.map(id=>exhibits.find(x=>x.id===id)?.name).filter(Boolean).join('、'))}</p>`:''}<p class="muted">${esc(r.keywords||'')}</p><button data-catalog="edit" data-id="${esc(r.id)}">编辑</button> <button data-catalog="delete" data-id="${esc(r.id)}">删除</button></article>`).join('');
+  const tiles=items=>items.map(r=>`<article class="panel">${image(r)?`<img class="catalog-image" src="${image(r)}" alt="${esc(r.name)}">`:''}<h3>${esc(r.name)}</h3><p>${esc([r.type,r.era,r.category,r.theme].filter(Boolean).join(' · '))}</p><p>${esc(r.intro||'')}</p>${r.start?`<p>${esc(r.start)} 至 ${esc(r.end)}</p>`:''}${r.memberIds?.length?`<p>${esc(r.memberIds.map(id=>exhibits.find(x=>x.id===id)?.name).filter(Boolean).join('、'))}</p>`:''}<p class="muted">${esc(r.keywords||'')}</p>${/^https:\/\/(museum\.nju\.edu\.cn|www\.nju\.edu\.cn)\//.test(r.sourceUrl||'')?`<p><a href="${esc(r.sourceUrl)}" target="_blank" rel="noopener noreferrer">查看资料来源 ↗</a></p>`:''}<button data-catalog="edit" data-id="${esc(r.id)}">编辑</button> <button data-catalog="delete" data-id="${esc(r.id)}">删除</button></article>`).join('');
   return `<section class="panel"><h3>账号同步</h3><p>登录个人 AI 账号后，可将馆藏和图片保存到云端。换设备后登录并读取云端馆藏。</p><button data-catalog="upload">保存到云端</button> <button data-catalog="download">读取云端</button></section>
    <section class="panel"><h3>展品关键词词云</h3><div class="catalog-cloud">${words.map(([term,count])=>`<button data-catalog="word" data-id="${esc(term)}" style="font-size:${Math.min(26,12+count*3)}px" title="${count} 件展品">${esc(term)}</button>`).join('')||'添加展品后显示关键词。'}</div>${word?`<p>筛选：${esc(word)} <button data-catalog="word">清除</button></p>`:''}</section>
    <section class="panel"><h3>展品 · ${exhibits.length} 件</h3><button data-catalog="new">添加展品</button> <button data-catalog="template">下载 CSV 模板</button> <button data-catalog="import">选择 CSV</button><input id="catalog-csv" type="file" accept=".csv,text/csv" hidden><div id="catalog-drop" tabindex="0">将展品 CSV 拖到这里</div></section>
@@ -113,7 +114,7 @@ export function createCatalog({getState,client,esc,modal,persist,render,toast,do
     resources.push({...r,...(picture?{image:picture.image}:{})});
    }
    if(getState()!==state)throw Error('账号已切换，请重新读取');
-   state.resources=resources;state.museum=cloud.catalog.museum;remoteVersion=cloud.version;
+   state.resources=resources;state.museum=cloud.catalog.museum;migrateMuseumCase(state);remoteVersion=cloud.version;
    await save();toast('已读取云端馆藏');return;
   }
   if(cloud.version!==remoteVersion&&cloud.catalog&&!confirm('云端已有馆藏。确认用当前馆藏替换？'))return;
