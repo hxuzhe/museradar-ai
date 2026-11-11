@@ -1,3 +1,4 @@
+import {personalCatalog} from './personal-catalog.mjs';
 import {PersonalAIService,personalToken} from './personal-ai.mjs';
 import {PublicAIService,publicDay} from './public-ai.mjs';
 import {ClassroomService,classroomError,digest} from './classroom-auth.mjs';
@@ -13,7 +14,7 @@ export class D1ClassroomStore {
 const encoder=new TextEncoder();
 function provider(env){return {base:env.MODEL_BASE_URL||'https://api.deepseek.com',model:env.MODEL_NAME||'deepseek-flash',key:env.MODEL_API_KEY||'',maxTokens:6000};}
 function settings(env){let password;try{password=JSON.parse(env.CLASSROOM_PASSWORD_RECORD||'null');}catch{}let authorizedPassword;try{authorizedPassword=JSON.parse(env.AUTHORIZED_PASSWORD_RECORD||'null');}catch{}return {password,authorizedPassword,enabled:env.CLASSROOM_ENABLED!=='0'};}
-async function readBody(request){if(Number(request.headers.get('content-length')||0)>500000)throw classroomError('内容过大，请缩小批次',413);const text=await request.text();if(encoder.encode(text).length>500000)throw classroomError('内容过大，请缩小批次',413);try{return JSON.parse(text);}catch{throw classroomError('请求内容不是有效 JSON');}}
+async function readBody(request,limit=500000){if(Number(request.headers.get('content-length')||0)>limit)throw classroomError('内容过大，请缩小批次',413);const text=await request.text();if(encoder.encode(text).length>limit)throw classroomError('内容过大，请缩小批次',413);try{return JSON.parse(text);}catch{throw classroomError('请求内容不是有效 JSON');}}
 function bearer(request){return (request.headers.get('authorization')||'').replace(/^Bearer /,'');}
 export function createClassroomWorker({store:injectedStore,fetchImpl=fetch}={}){return {async fetch(request,env){const url=new URL(request.url),origin=request.headers.get('origin'),allowed=(env.ALLOWED_ORIGINS||'https://hxuzhe.github.io').split(',').map(x=>x.trim()),headers={'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Vary':'Origin'};if(origin&&(allowed.includes(origin)||origin===url.origin)){headers['Access-Control-Allow-Origin']=origin;headers['Access-Control-Allow-Headers']='Content-Type, Authorization';headers['Access-Control-Allow-Methods']='GET, POST, OPTIONS';}const send=(code,value)=>new Response(JSON.stringify(value),{status:code,headers});
  try{if(origin&&!allowed.includes(origin)&&origin!==url.origin)throw classroomError('此网站不在课堂允许列表',403);if(request.method==='OPTIONS')return new Response(null,{status:204,headers});const config=provider(env),isPublic=env.PUBLIC_ACCESS==='1';
@@ -24,6 +25,10 @@ export function createClassroomWorker({store:injectedStore,fetchImpl=fetch}={}){
  if(url.pathname.startsWith('/api/personal/')){
   if(!isPublic||!personal.enabled)throw classroomError('个人账号暂不可用',503);
   const path=url.pathname,method=request.method;
+  if(['/api/personal/catalog','/api/personal/catalog/image'].includes(path)){
+   const account=await personal.authenticate(token);
+   return send(200,await personalCatalog(request,url,store,account,req=>readBody(req,path.endsWith('/image')?700000:500000)));
+  }
   if(path==='/api/personal/register'&&method==='POST')return send(201,await personal.register(await readBody(request)));
   if(path==='/api/personal/login'&&method==='POST')return send(200,await personal.login(await readBody(request)));
   if(path==='/api/personal/logout'&&method==='POST')return send(200,await personal.logout(token));
