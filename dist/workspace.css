@@ -6,5 +6,7 @@
 .opportunity-bar.yellow{background:#c99115}
 .opportunity-bar.green{background:#198359}
 .catalog-image{width:100%;height:180px;object-fit:contain;background:#f3f6f8;border-radius:8px}
-.catalog-cloud{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.catalog-cloud{max-width:960px;margin-inline:auto}
+.catalog-cloud svg{display:block}
+.catalog-cloud a:is(:hover,:focus-visible) text{text-decoration:underline}
 #catalog-drop{margin-top:12px;padding:16px;border:2px dashed #9db9bf;border-radius:8px}
