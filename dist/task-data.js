@@ -8,6 +8,18 @@ function prune(state,removed){
  if(removed.length){state.aiTask=null;state.selectedGroup='';}
  for(const task of state.tasks||[])if(task.postIds)task.postIds=task.postIds.filter(id=>!ids.has(id));
 }
+const retiredSources=new Set(['hn','se-travel','se-history','HN Search','Hacker News','Travel Stack Exchange','History Stack Exchange']);
+export function removeRetiredCommunityData(state){
+ const removed=state.posts.filter(post=>post.kind!=='imported'&&post.kind!=='manual'&&(
+  retiredSources.has(post.sourceId)||retiredSources.has(post.source)||retiredSources.has(post.platform)||/^(?:HN-\d+|SE-(?:travel|history)-\d+)$/.test(post.id)
+ )).map(post=>post.id);
+ if(removed.length)prune(state,removed);
+ const retiredTasks=new Set((state.tasks||[]).filter(task=>retiredSources.has(task.source)).map(task=>task.id));
+ if(retiredTasks.size)state.tasks=state.tasks.filter(task=>!retiredTasks.has(task.id));
+ if(retiredTasks.has(state.filters?.taskId))delete state.filters.taskId;
+ if(retiredSources.has(state.filters?.source))delete state.filters.source;
+ return removed.length;
+}
 export function prepareTaskData(state){
  const removed=state.posts.filter(isHistorical).map(p=>p.id);prune(state,removed);state.tasks||=[];
  for(const task of state.tasks){if(Array.isArray(task.postIds))continue;
