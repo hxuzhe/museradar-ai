@@ -1,3 +1,4 @@
+import {readWeiboComments} from './weibo.mjs';
 import {personalCatalog} from './personal-catalog.mjs';
 import {PersonalAIService,personalToken} from './personal-ai.mjs';
 import {PublicAIService,publicDay} from './public-ai.mjs';
@@ -37,6 +38,11 @@ export function createClassroomWorker({store:injectedStore,fetchImpl=fetch}={}){
    return send(200,await personal.saveKey(account,(await readBody(request)).key));
   }
   throw classroomError('接口不存在',404);
+ }
+ if(isPublic&&url.pathname==='/api/weibo/comments'&&request.method==='POST'){
+  const {session,config}=await service.authenticate(token);
+  if(!await service.isAuthorized(session,config))throw classroomError('请先在「网站 AI · 查看用量」开启授权模式',403);
+  return send(200,await readWeiboComments(env,store,await readBody(request),fetchImpl));
  }
  if(isPublic&&url.pathname==='/api/public/session'&&request.method==='POST')return send(200,await service.issue());
  if(isPublic&&url.pathname==='/api/public/authorize'&&request.method==='POST'){const input=await readBody(request);return send(200,await service.authorize(token,input.password));}
