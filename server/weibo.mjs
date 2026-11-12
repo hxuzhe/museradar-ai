@@ -6,12 +6,12 @@ export async function readWeiboComments(env,store,input,fetchImpl){
  const validDay=day=>typeof day==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(day)&&Number.isFinite(Date.parse(day))&&new Date(day).toISOString().slice(0,10)===day;
  if(!query||query.length>100||/[{}、“”]/.test(query))throw classroomError('请输入有效的微博关键词（最多 100 字）');
  if((from&&!validDay(from))||(to&&!validDay(to))||(from&&to&&from>to))throw classroomError('请选择有效的评论日期范围');
- const args={q:query,type:2,count:50,page:1};
- if(from)args.starttime=Date.parse(from+'T00:00:00+08:00')/1000;
- if(to)args.endtime=Date.parse(to+'T23:59:59+08:00')/1000;
+ const args={q:query,type:'2',count:'50',page:'1'};
+ if(from)args.starttime=String(Date.parse(from+'T00:00:00+08:00')/1000);
+ if(to)args.endtime=String(Date.parse(to+'T23:59:59+08:00')/1000);
  if(!env.WEIBO_CLI_ACCESS_TOKEN)throw classroomError('微博服务尚未配置',503);
  const base='https://open.weibo.com/cli/api';
- const headers={Authorization:'Bearer '+env.WEIBO_CLI_ACCESS_TOKEN,'Content-Type':'application/json'};
+ const headers={Authorization:'Bearer '+env.WEIBO_CLI_ACCESS_TOKEN,'Content-Type':'application/json',Accept:'application/json','User-Agent':'weibo-cli/0.9.8','X-Weibo-Agent-Source':'museradar','X-Weibo-Agent-Host':'unknown','X-Weibo-Source-Method':'flag'};
  const request=async(path,init)=>{try{return await fetchImpl(base+path,{headers,redirect:'manual',signal:AbortSignal.timeout(15000),...init});}catch{throw classroomError('Cloudflare 无法连接微博官方接口',502);}};
  const account=await request('/cli/whoami');
  if(!account.ok)throw classroomError('微博授权已失效或暂不可用',503);
@@ -42,4 +42,5 @@ export async function readWeiboComments(env,store,input,fetchImpl){
  });
  return {rows,returned:comments.length};
 }
+
 
