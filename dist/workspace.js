@@ -41,23 +41,30 @@ function filters(){const f=state.filters;return `${scoreGuide()}<section class="
 function render(){if(!navigation.some(n=>n[0]===page))page='overview';const nav=navigation.find(n=>n[0]===page);$('#app').innerHTML=`<aside><a class="brand" href="#overview"><span class="brand-icon">◈</span><span>MuseRadar <em>AI</em><small>AUDIENCE INTELLIGENCE</small></span></a><div class="workspace-label">需求发现 → 营销验证</div><nav>${navigation.map(n=>`<a href="#${n[0]}" class="${n[0]===page?'active':''}"><span>${n[1]}</span><div>${n[2]}<small>${n[3]}</small></div></a>`).join('')}<a href="./guide.html" target="_blank" rel="noopener noreferrer"><span>?</span><div>完整操作指南 ↗<small>User Guide</small></div></a></nav><div class="sidebar-bottom">真实来源 · 原文可追溯<p>工作空间仅保存在此浏览器</p>${action('连接与运行设置','settings')}</div></aside><div class="shell"><header><div>工作空间 / ${esc(nav[2])}</div><div class="header-right"><span class="museum-name">${esc(state.museum.name)}</span><button data-act="settings" class="status-button">${esc(modeName())}</button></div></header><main><div class="page-heading"><div><div class="eyebrow">MUSERADAR / WORKSPACE 3.4</div><h1>${esc(nav[2])}</h1><p>从真实评论出发，把群体需求转化为有依据的宣传方案。</p></div><div class="toolbar">${publicAIConfig.active&&!localOrigin()?action(client.personalAccount?'个人 AI · '+client.personalAccount.username:'登录 / 注册个人 AI','personal',true):''}${client.personalAccount?'':action('网站 AI · 查看用量','public-info',true)}${localOrigin()?action('所有者管理','owner'):''}${localOrigin()||!publicAIConfig.active?action('个人模型设置','settings'):''}</div></div>${steps()}<div class="notice"><b>真实评论 · 馆藏知识库。</b> 可拉取微博评论或导入评论文件。${state.mode==='ai'?'网站在点击分析时调用模型。个人账号使用自己的 DeepSeek 配额，游客使用网站共享配额。':'当前为明确标注的本地规则演示模式，不消耗模型 token。'}</div>${busy?`<div class="notice working" role="status"><b>${esc(busy.label)}</b><p>${esc(busy.progress||'正在处理…')}</p>${action('暂停并保留进度','pause')}</div>`:''}${({overview,social,analysis,insights,studio,dna}[page])()}<footer>真实公开评论 · 不保留评论者身份 · 分档不代表到馆概率 <span>MuseRadar AI · Phase 2</span></footer></main></div>`;}
 function overview(){const all=selectRows(state),done=all.filter(r=>r.a),high=done.filter(r=>r.a.level>=8&&r.review!=='rejected'),s=scope();return `<section class="hero"><div>${badge('从数据到行动','light')}<h2>让每一种文化需求，<br>找到适合它的博物馆体验。</h2><p>四步完成获取、分析、需求画像与宣传方案。</p>${action(state.tasks.length?'继续我的分析任务 →':'开始一次分析 →','start',true)}</div><div class="radar-art"><div class="orbit o1"></div><div class="orbit o2"></div><div class="orbit o3"></div><b>◈</b><span class="radar-label l1">真实评论</span><span class="radar-label l2">需求画像</span><span class="radar-label l3">宣传行动</span></div></section><div class="kpis">${[['已保存真实与导入内容',state.posts.length,'条','social'],['当前模式已有分析',done.length,'条','analysis'],['八至十级参观机会',high.length,'条','high'],['近期有效需求群体',s.groups.length,'类','insights']].map(([label,n,unit,target])=>`<button class="kpi" data-go="${target}"><span>${label} ↗</span><strong>${n}<small>${unit}</small></strong><p>点击查看对应范围</p></button>`).join('')}</div><div class="grid2"><section class="panel"><h3>你的下一步</h3><p>${state.tasks.length?'继续已有获取任务，或创建一个新的数据范围。':'先选择一个社区，输入关键词，获取该范围内所有可访问评论。'}</p><div class="toolbar">${action('① 选择与获取评论','start',true)}${action('② 分析与十级筛选','to-analysis')}</div><p class="muted">网站 AI 自动连接，无需个人配置。也可在“网站 AI · 查看用量”中切换规则演示，不消耗模型额度。</p></section><section class="panel"><h3>从在线获取开始</h3><p>初始评论为空，不再加载历史研究快照。请按关键词和日期从英文社区获取数据。</p><p>每个任务记录自己的评论；删除任务后同步清理相关分析、词云和受影响方案。重叠任务仍在使用的评论会保留。</p>${action('查看博物馆资源','to-dna')}</section></div><section class="panel"><h3>已有获取任务</h3>${tasksHTML()||'<p class="muted">尚无在线任务，请先获取评论。</p>'}</section>`;}
 function tasksHTML(){return (lastTaskDeletion?'<div class="notice">已删除任务及 '+lastTaskDeletion.removed+' 条独占评论。'+action('撤销上次删除','undo-task')+'<small>仅当前页面有效，刷新后不可撤销。</small></div>':'')+state.tasks.slice().reverse().map(t=>`<article class="collection-task"><div><strong>${esc(communities.find(s=>s.id===t.source)?.name)} · ${esc(t.query)}</strong> ${badge(({ready:'待开始',running:'获取中',paused:'已暂停',error:'部分获取 / 出错',partial:'部分获取',complete:'已取完可访问结果'})[t.status]||t.status,t.complete&&!t.partialReasons.length?'teal':'')}<p>${esc(t.from||'不限起始')} — ${esc(t.to||t.createdAt.slice(0,10))} · ${t.pages} 次请求 · 响应评论 ${t.received} 条 · 新增 ${t.added} · 重复 ${t.duplicates} · 排除 ${t.excluded}</p><small>${t.source==='hn'?'范围：关键词匹配的索引评论；超窗口时按时间分片':'范围：关键词匹配的问题下的评论；不含回答及其评论'}${t.quota!==undefined?' · 剩余额度 '+t.quota:''}</small>${t.error?`<p class="danger">${esc(t.error)}</p>`:''}${t.partialReasons.length?`<p class="danger">${esc(t.partialReasons.join('；'))}</p>`:''}</div><div>${!t.complete?action('继续 / 重试','resume:'+t.id,true,!!busy):action('查看本任务评论','task:'+t.id)}${action('删除任务及评论','delete-task:'+t.id,false,!!busy)}${t.membership==='legacy-estimated'?'<small>旧任务评论关联按来源、日期及关键词恢复；删除前请核对数量。</small>':''}${t.lastUrl?`<a href="${esc(safeUrl(t.lastUrl))}" target="_blank" rel="noopener noreferrer">最近请求 ↗</a>`:''}</div></article>`).join('');}
-const commentSources=[{id:'weibo',label:'微博',render:()=>`<form id="weibo-form"><div class="form-grid"><label>微博数字 ID 或数字详情链接<input name="post" placeholder="例如 5362391904947642" required></label><label>页码<input name="page" type="number" min="1" max="20" value="1" required></label></div><p class="muted">使用网站授权模式。每次请求一页，最多 50 条，受微博免费体验额度限制。</p><button class="primary" ${busy?'disabled':''}>拉取微博评论</button></form>`}];
-function social(){return `${commentSources.map(source=>`<section class="panel"><h3>${esc(source.label)}评论</h3>${source.render()}</section>`).join('')}<section class="panel"><h3>导入评论</h3><p>可上传从其他平台取得的 CSV 或 JSON，确认预览后加入工作空间。</p>${action('导入 CSV / JSON','import')}<input type="file" id="import-file" accept=".csv,.json" hidden></section><div class="toolbar">${action('导出筛选评论','export-posts')}${action('下一步：分析与分档 →','to-analysis',true)}</div>${wordCloudPanel(state.posts)}${filters()}${tableHTML()}`;}
+const commentSources=[{id:'weibo',label:'微博'}];
+function commentSearchForm(){
+ const draft=state.weiboDraft||{};
+ return `<form id="weibo-form"><div class="form-grid">
+ <label>社区<select name="source">${commentSources.map(source=>`<option value="${source.id}">${esc(source.label)}</option>`).join('')}</select></label>
+ <label>关键词<input name="query" placeholder="例如 南京大学博物馆" value="${esc(draft.query||'')}" maxlength="100" required></label>
+ <label>评论开始日期（可留空）<input name="from" type="date" value="${esc(draft.from||'')}"></label>
+ <label>评论结束日期（可留空）<input name="to" type="date" value="${esc(draft.to||'')}"></label></div>
+ <p class="muted">使用网站授权模式，按评论发布时间筛选（北京时间）。每次搜索最多返回 50 条，受微博免费体验额度限制。</p>
+ <button class="primary" ${busy?'disabled':''}>获取评论</button></form>`;
+}
+function social(){return `<section class="panel"><h3>按关键词获取评论</h3>${commentSearchForm()}</section><section class="panel"><h3>导入评论</h3><p>可上传从其他平台取得的 CSV 或 JSON，确认预览后加入工作空间。</p>${action('导入 CSV / JSON','import')}<input type="file" id="import-file" accept=".csv,.json" hidden></section><div class="toolbar">${action('导出筛选评论','export-posts')}${action('下一步：分析与分档 →','to-analysis',true)}</div>${wordCloudPanel(state.posts)}${filters()}${tableHTML()}`;}
 async function collectWeibo(form){
- const fields=new FormData(form),value=String(fields.get('post')).trim();
- let id=value;
- if(!/^\d{10,20}$/.test(id)){
-  let url;try{url=new URL(value);}catch{throw Error('请输入微博数字 ID 或数字详情链接');}
-  const match=/^\/(?:detail|status)\/(\d{10,20})\/?$/.exec(url.pathname);
-  if(url.protocol!=='https:'||!['m.weibo.cn','weibo.com','www.weibo.com'].includes(url.hostname)||!match)throw Error('请使用微博数字 ID 或带数字 ID 的详情链接');
-  id=match[1];
- }
+ const {source,query,from,to}=Object.fromEntries(new FormData(form));
+ if(source!=='weibo')throw Error('当前仅支持微博');
+ if(!query.trim())throw Error('请输入关键词');
+ if(from&&to&&from>to)throw Error('评论结束日期不能早于开始日期');
+ state.weiboDraft={query,from,to};await persist();
  if(client.personalAccount)throw Error('请退出个人账号，并在「网站 AI · 查看用量」开启授权模式');
  if(!client.token)await reconnectPublic();
- busy={kind:'weibo',label:'正在拉取微博评论',progress:'正在读取所选页'};
+ busy={kind:'weibo',label:'正在拉取微博评论',progress:'正在搜索关键词'};
  render();
  try{
-  const result=await client.request('/api/weibo/comments',{id,page:Number(fields.get('page'))});
+  const result=await client.request('/api/weibo/comments',{query,from,to});
   const rows=result.rows.map(row=>({...row,text:redact(row.text),source:'微博',platform:'微博',sourceId:'weibo',kind:'public-discussion',evidenceUrl:row.sourceUrl,collectedAt:new Date().toISOString(),provenance:'微博官方开放接口'}));
   const merged=mergeRows(rows,state.posts);
   state.posts.push(...merged.items);await persist();
