@@ -6,19 +6,19 @@ export async function readWeiboComments(env,store,input,fetchImpl){
  if(!env.WEIBO_CLI_ACCESS_TOKEN)throw classroomError('微博服务尚未配置',503);
  const base='https://open.weibo.com/cli/api';
  const headers={Authorization:'Bearer '+env.WEIBO_CLI_ACCESS_TOKEN,'Content-Type':'application/json'};
- const request=(path,init)=>fetchImpl(base+path,{headers,redirect:'error',signal:AbortSignal.timeout(15000),...init});
+ const request=async(path,init)=>{try{return await fetchImpl(base+path,{headers,redirect:'error',signal:AbortSignal.timeout(15000),...init});}catch{throw classroomError('Cloudflare 无法连接微博官方接口',502);}};
  const account=await request('/cli/whoami');
  if(!account.ok)throw classroomError('微博授权已失效或暂不可用',503);
- const profile=await account.json();
- if(profile.service_status?.kind!=='trial_active')throw classroomError('微博免费体验当前不可用',403);
+ const profile=await account.json().catch(()=>null);
+ if(profile?.service_status?.kind!=='trial_active')throw classroomError('微博免费体验当前不可用',403);
  await store.update('weibo:trial-calls',value=>{
   if((value||0)>=4)throw classroomError('本站微博试用调用次数已用完',429);
   return (value||0)+1;
  });
  const response=await request('/cli/invoke',{method:'POST',body:JSON.stringify({group:'comments',action:'show/all',args:{id,page,count:50}})});
  if(!response.ok)throw classroomError(response.status===429?'微博接口额度已用完，请稍后再试':'微博未能返回评论，请检查博文 ID 或访问权限',response.status===429?429:502);
- const payload=await response.json();
- const comments=payload.result?.comments;
+ const payload=await response.json().catch(()=>null);
+ const comments=payload?.result?.comments;
  if(!Array.isArray(comments))throw classroomError('微博返回的评论格式不正确',502);
  const sourceUrl='https://m.weibo.cn/detail/'+id;
  const rows=comments.flatMap(row=>{
@@ -33,3 +33,4 @@ export async function readWeiboComments(env,store,input,fetchImpl){
  });
  return {rows,sourceUrl,page};
 }
+
