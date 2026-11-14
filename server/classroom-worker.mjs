@@ -39,6 +39,13 @@ export function createClassroomWorker({store:injectedStore,fetchImpl=fetch}={}){
   }
   throw classroomError('接口不存在',404);
  }
+ if(isPublic&&url.pathname==='/api/examples/xiaohongshu'&&request.method==='GET'){
+  await personal.authenticate(token);
+  const chunks=await Promise.all(Array.from({length:10},(_,index)=>store.get('xhs-example-v1:'+index)));
+  if(chunks.some(chunk=>typeof chunk!=='string'))throw classroomError('示例数据暂不可用',503);
+  const bytes=Uint8Array.from(atob(chunks.join('')),character=>character.charCodeAt(0));
+  return new Response(bytes,{encodeBody: 'manual',headers:{...headers,'Content-Encoding':'gzip','Cache-Control':'private, no-store'}});
+ }
  if(isPublic&&url.pathname==='/api/weibo/comments'&&request.method==='POST'){
   const {session,config}=await service.authenticate(token);
   if(!await service.isAuthorized(session,config))throw classroomError('请先在「网站 AI · 查看用量」开启授权模式',403);
