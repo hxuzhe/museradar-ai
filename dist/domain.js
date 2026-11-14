@@ -10,26 +10,6 @@ export function ruleAssessment(post,resources,museum){
   const r=analyze(post,resources),t=post.text,history=['已经参观','历史评论/到访待核实'].includes(r.intent),irrelevant=r.intent==='无关内容',weak=/太贵|贵了|担心|犹豫|排队|不方便|expensive|worried|queue|crowd/i.test(t),level=irrelevant?1:history?2:r.intent==='负面/排斥'?1:r.intent==='明确参观计划'?5:r.intent==='潜在体验需求'?4:2;
   const value={mode:'rules',fingerprint:fingerprint(post,resources,museum),model:'local-rules-v3',analyzedAt:new Date().toISOString(),level,sentiment:/不想|失望|差劲|太贵|不推荐|糟糕|disappoint|terrible|hate/i.test(t)?'负面':/喜欢|开心|推荐|精彩|值得|很棒|love|wonderful|great/i.test(t)?'正面':'中性',relevance:irrelevant?'无关':'相关',visitState:history?'已参观/历史反馈':level>=4?'未来需求':'未明确',theme:r.theme,needs:r.hits,evidence:r.hits.filter(x=>t.includes(x)).slice(0,5),reason:history?'历史反馈单独归类，不根据好评推断新的参观意愿':r.reasons[1],uncertainties:r.uncertainties,resourceIds:r.matches.map(x=>x.id),status:'success'};ruleMemo.set(post,{key,value});return value;
 }
-export function quickAssessment(post,resources,museum){
- const base=ruleAssessment(post,resources,museum),text=post.text;
- const question=/怎么|如何|为什么|什么|好奇|想了解|[？?]/;
- const context=[text,post.noteTitle,post.noteBody?.slice(0,350)].filter(Boolean).join(' ');
- const names=resources.filter(r=>r.type==='展品'&&[r.name,...String(r.aliases||'').split(/[、，,]/)].some(name=>name?.trim().length>=2&&context.includes(name.trim())));
- const direct=names.filter(r=>text.includes(r.name));
- const negative=/不想|不会去|不打算|不去|没去|不能|排不上|没约到|除非/;
- const ambiguous=negative.test(text)||/这个|那个|这件|那里|还能|现在|今天|明天|周末|下周|下个月/.test(text);
- const visit=text.match(/已预约|已经预约|已经约了|预约成功|已购票|已经买票|正在前往|打算.{0,8}(?:周[一二三四五六日]|去看)/);
- const intent=text.match(/想去|想看|怎么预约|如何预约|能预约|校外.{0,8}(?:进|预约)|几点开放|开放吗|怎么进|可以参观/);
- const curiosity=text.match(question);
- const level=negative.test(text)?Math.min(base.level,3):visit?5:intent?4:curiosity&&(names.length||base.relevance==='相关')?3:Math.min(base.level,2);
- const cue=visit?.[0]||intent?.[0]||curiosity?.[0];
- const resourceIds=level===3&&direct.length===1&&!ambiguous?[direct[0].id]:[];
- const needsReview=Boolean(ambiguous||(level>=3&&!resourceIds.length)||(curiosity&&level<3)||(base.level>=3&&level<3)||names.length>1);
- return {...base,scale:5,mode:'quick',model:'quick-rules-v1',level,needsReview,
-  relevance:level>=3?'相关':base.relevance,visitState:level>=4?'未来需求':base.visitState==='已参观/历史反馈'?'已参观/历史反馈':'未明确',
-  resourceIds,matchStatus:resourceIds.length?'matched':'uncertain',timeliness:'unknown',
-  evidence:cue?[cue]:base.evidence,reason:needsReview?'规则初判，存在时间、否定、指代或馆藏匹配疑问，等待复核。':'依据评论原文进行规则初判。'};
-}
 export function validateAssessment(value,post,resources,museum){
   if(!value||typeof value!=='object')throw Error('模型未返回有效对象');
   if(!['正面','负面','中性','混合','不确定'].includes(value.sentiment))throw Error('模型情绪字段无效');
@@ -44,9 +24,9 @@ export function validateAssessment(value,post,resources,museum){
   if(value.level>=2&&!evidence.length)throw Error('意愿分档必须有原文证据');
   return {mode:'ai',model:'configured-model',status:'success',fingerprint:fingerprint(post,resources,museum),analyzedAt:new Date().toISOString(),scale:5,matchStatus:resourceIds.length?'matched':value.matchStatus==='unmatched'?'unmatched':'uncertain',timeliness:value.timeliness||'unknown',target:String(value.target||'').slice(0,300),reasonCode:String(value.reasonCode||'').slice(0,80),level:value.level,sentiment:value.sentiment,relevance:value.relevance,visitState:value.visitState,theme:value.theme,reason:value.reason,evidence,needs:strings(value.needs,12),uncertainties:strings(value.uncertainties,12),resourceIds};
 }
-export function assessment(post,state){const a=state.assessments?.[post.id],fresh=a&&a.fingerprint===fingerprint(post,state.resources,state.museum);let out=fresh&&(a.mode==='quick'||!state.activeModel||a.model===state.activeModel)?a:null;
+export function assessment(post,state){const a=state.assessments?.[post.id],fresh=a&&a.fingerprint===fingerprint(post,state.resources,state.museum);let out=fresh&&(!state.activeModel||a.model===state.activeModel)?a:null;
   if(state.mode==='rules')out=ruleAssessment(post,state.resources,state.museum);
-  if(state.mode==='ai'&&!['ai','quick'].includes(out?.mode))out=null;
+  if(state.mode==='ai'&&out?.mode!=='ai')out=null;
   const review=state.reviews?.[post.id];if(review?.override&&review.fingerprint===fingerprint(post,state.resources,state.museum))out={...(out||{}),...review.override,mode:'human',reason:review.note,fingerprint:review.fingerprint,status:'success',evidence:review.evidence||[],resourceIds:out?.resourceIds||[],needs:out?.needs||[],uncertainties:out?.uncertainties||[],theme:review.override.theme||out?.theme||'其他'};
   return out;
 }
