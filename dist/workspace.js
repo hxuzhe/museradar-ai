@@ -1,4 +1,4 @@
-import {analysisBatches,runAnalysisBatches} from './analysis-batches.js?v=20261114-rolling';
+import {analysisBatches,runAnalysisBatches} from './analysis-batches.js?v=20261114-firstpass';
 import {createCatalog,scoreGuide} from './catalog-ui.js?v=20261114-xhs';
 import {catalogCandidates} from './opportunity.js';
 import {openPersonalAI} from './personal-ai-ui.js?v=20261110-byok';
@@ -12,7 +12,7 @@ import {museum,resources,posts,themes,migrateMuseumCase} from './data.js?v=20261
 import {communities,newCollection,fetchCollectionPage,mergeRows,redact} from './collectors.js?v=20261027-2';
 import {levels,assessment,selectRows,cohortScope,groupSignature,templatePlan,fingerprint,validateAssessment} from './domain.js?v=20261114-flash';
 import {loadWorkspace,saveWorkspace,migrate} from './storage.js?v=20261110-byok';
-import {AIClient} from './ai-client.js?v=20261114-speed';
+import {AIClient} from './ai-client.js?v=20261114-firstpass';
 import {provenanceCard,highlight} from './evidence-ui.js';
 import {safeUrl} from './sources.js';
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -156,10 +156,10 @@ async function runAnalysis(rows){if(busy)return;if(publicAIConfig.active&&!local
   send:async batch=>{
 const response=await client.analyze(batch.map(r=>({...r.post,noteBody:r.post.noteBody?.slice(0,1200)})),catalogCandidates(batch.map(r=>r.post),state.resources),state.museum,controller.signal);if(!Array.isArray(response.results))throw Error('AI 后端返回格式无效');const retry=[];for(const r of batch){const result=response.results.find(x=>x.id===r.post.id);try{if(!result||result.error)throw Error(result?.error||'该条未返回结果');const validated=validateAssessment(result.analysis,r.post,state.resources,state.museum);state.assessments[r.post.id]={...validated,model:response.model||result.analysis.model};connection={...connection,verified:true};delete state.errors[r.post.id];state.aiTask.success++;}catch(e){retry.push({row:r,error:e});}}busy.progress=`成功 ${state.aiTask.success} / ${candidates.length} · 仍待处理 ${state.aiTask.failed}`;await persist();render();return retry;
   },
-  retrying:count=>{busy.progress='正在自动重试 '+count+' 条 · 已成功 '+state.aiTask.success+' 条';render();},
   failed:(batch,error)=>{
    for(const row of batch)state.errors[row.post.id]=error.message;
    state.aiTask.failed+=batch.length;
+   busy.progress=`成功 ${state.aiTask.success} / ${candidates.length} · 仍待处理 ${state.aiTask.failed}`;render();
   }
  });
  if(signal.aborted)throw Error('任务已暂停');
