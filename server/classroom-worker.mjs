@@ -75,11 +75,11 @@ export function createClassroomWorker({store:injectedStore,fetchImpl=fetch}={}){
  const model=async(system,data,task)=>{
   const separate=account&&isAnalysis;
   const key=separate?'personal-analysis-leases:'+account.id:null;
-  if(account)await personal.rate('model:'+account.id+(separate?':analysis':''),separate?60:20,60000);
+  if(account)await personal.rate('model:'+account.id+(separate?':analysis':''),separate?120:20,60000);
   const lease=separate?crypto.randomUUID():isPublic?await service.acquire():null;
   if(key)await store.update(key,old=>{
    const now=Date.now(),leases=(old?.leases||[]).filter(item=>item.expires>now);
-   if(leases.length>=4)throw classroomError('个人分析并发已满，请稍后重试',429);
+   if(leases.length>=8)throw classroomError('个人分析并发已满，请稍后重试',429);
    return {leases:[...leases,{id:lease,expires:now+150000}]};
   });
   const configForTask=taskModelConfig(config,task);

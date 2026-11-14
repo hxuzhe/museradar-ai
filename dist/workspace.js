@@ -1,4 +1,4 @@
-import {analysisBatches,runAnalysisBatches} from './analysis-batches.js?v=20261114-retry';
+import {analysisBatches,runAnalysisBatches} from './analysis-batches.js?v=20261114-rolling';
 import {createCatalog,scoreGuide} from './catalog-ui.js?v=20261114-xhs';
 import {catalogCandidates} from './opportunity.js';
 import {openPersonalAI} from './personal-ai-ui.js?v=20261110-byok';
@@ -150,7 +150,7 @@ function setAIWaitFeedback(){client.onWait=(ms,reason)=>{if(busy){busy.progress=
 async function runAnalysis(rows){if(busy)return;if(publicAIConfig.active&&!localOrigin()&&!client.token){try{await reconnectPublic();}catch(e){toast(e.message);return;}}const candidates=rows.filter(r=>!r.a&&r.review!=='rejected');if(!candidates.length){toast('当前范围没有待处理评论');return;}if(state.mode!=='ai'){toast('当前是规则演示；请切换到真实 AI 模式');return;}try{const status=client.personalAccount?{configured:client.personalAccount.configured,model:'deepseek-flash'}:await client.status();connection=status;if(!status.configured)throw Error(client.personalAccount?'请先在个人 AI 账号中保存 DeepSeek API Key':'后端已连接但尚未配置模型。请稍后在服务端配置。');}catch(e){toast(e.message);return;}
  setAIWaitFeedback();controller=new AbortController();busy={kind:'analysis',label:'AI 逐批分析',progress:'本次 '+candidates.length+' 条'};state.aiTask={total:candidates.length,success:0,failed:0,status:'运行中',startedAt:new Date().toISOString()};state.errors||={};render();try{
  const signal=controller.signal;
- const parallel=client.personalAccount?4:1;
+ const parallel=client.personalAccount?8:1;
  await runAnalysisBatches(analysisBatches(candidates),{
   parallel,signal,
   send:async batch=>{
