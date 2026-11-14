@@ -1,6 +1,6 @@
 import {cloudSVG} from './wordcloud.js?v=20261111-cloud';
 import {migrateMuseumCase} from './data.js?v=20261111-nju';
-import {opportunityExamples,opportunityLabels} from './opportunity.js';
+import {opportunityExamples,opportunityLabels} from './opportunity.js?v=20261114-xhs';
 
 const columns=['名称','年代','类别','详细介绍','馆藏编号','别名'];
 const exhibitFields={name:'名称',era:'年代',category:'类别',intro:'详细介绍',accession:'馆藏编号',aliases:'别名',keywords:'关键词'};
@@ -41,7 +41,7 @@ export function parseExhibits(text,existing){
  });
  return {added,errors};
 }
-export const scoreGuide=()=>`<details class="panel"><summary>潜在参观机会 · 评分说明</summary><p>等级反映原文表达的参观机会。对展品好奇也可以成为推广线索。等级不能换算成到馆概率。</p><ol>${opportunityLabels.map((label,i)=>`<li><b>${label}</b> · ${opportunityExamples[i]}</li>`).join('')}</ol></details>`;
+export const scoreGuide=()=>`<details class="panel"><summary>五级需求指数 · 评分说明</summary><p>等级反映原文表达的参观机会。对展品好奇也可以成为推广线索。等级不能换算成到馆概率。</p><ol>${opportunityLabels.map((label,i)=>`<li><b>${label}</b> · ${opportunityExamples[i]}</li>`).join('')}</ol></details>`;
 export function createCatalog({getState,client,esc,modal,persist,render,toast,download,editResource}){
  let word='',remoteVersion=null,remoteAccount=null;
  const keywords=r=>[...new Set(String(r.keywords||'').split(/[、,，;；\s]+/).filter(Boolean))];

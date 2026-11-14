@@ -1,13 +1,5 @@
-export const opportunityLabels=[
- '与馆藏或参观无关','明确拒绝或暂不考虑','泛文化兴趣或历史回顾',
- '对类别、年代或工艺感兴趣','关注具体展品或特征','对具体展品好奇',
- '想现场观看或体验','有条件考虑或询问参观信息','明确参观计划','已预约、购票或正在前往'
-];
-export const opportunityExamples=[
- '今天路好堵。','我不想再排队看展了。','以前去过，感觉不错。',
- '古代铸造技术挺有意思。','这面铜镜的纹样真特别。','铜镜上的纹样是怎么做的？',
- '真想现场看看这面铜镜。','周末能看到吗？需要预约吗？','这周六打算带孩子去看铜镜展。','已经预约了周六下午的场次。'
-];
+export const opportunityLabels=['无需求或证据不足','泛兴趣或历史回顾','具体好奇','有到访意愿或在查条件','明确近期到访计划或已行动'];
+export const opportunityExamples=['纯表情或明确不去','上次去过，还不错','小克鼎铭文讲了什么？','校外能预约吗？想看看小克鼎','约了这周六下午去'];
 export function catalogCandidates(rows,resources){
  const text=rows.map(row=>row.text.toLowerCase()).join(' ');
  const terms=value=>String(value||'').toLowerCase().match(/[a-z][a-z0-9]{2,}|[\p{Script=Han}]{2,}/gu)||[];
