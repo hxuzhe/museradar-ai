@@ -1,54 +1,171 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MuseRadar AI · 使用指南 3.4</title><style>body{margin:0;color:#213b4d;background:#f5f8fa;font:15px/1.9 system-ui,"Microsoft YaHei",sans-serif}header{background:#112d40;padding:25px 6%;color:white}header a{color:#8ce4cc;margin-right:20px}.layout{max-width:1280px;margin:28px auto;display:grid;grid-template-columns:235px minmax(0,1fr);gap:30px;padding:0 24px}aside{position:sticky;top:20px;align-self:start;font-size:12px;max-height:90vh;overflow:auto}aside ul{padding-left:18px}a{color:#007f6d;text-decoration:none}main{background:white;padding:35px 45px;border:1px solid #e0e9ee;border-radius:12px;min-width:0}h1{font-size:25px}h2{font-size:21px;padding-top:24px;border-top:1px solid #e7eef1;scroll-margin-top:20px}h3{font-size:17px}p,li{overflow-wrap:anywhere}blockquote{background:#eaf6f1;border-left:4px solid #20a080;margin:20px 0;padding:12px 20px}table{border-collapse:collapse;width:100%;font-size:13px}td,th{border:1px solid #dce7ec;padding:10px;text-align:left}th{background:#edf5f3}pre{overflow:auto;background:#f0f4f7;padding:18px;border-radius:7px}code{font-size:13px}.top-links{margin-top:10px}@media(max-width:800px){.layout{display:block;padding:0 12px}aside{position:static;max-height:none;margin-bottom:20px}main{padding:22px}table{display:block;overflow:auto}}@media print{aside,header{display:none}.layout{display:block;margin:0}main{border:0;padding:0}}</style></head><body><header><strong>MuseRadar AI · 使用指南 3.4</strong><div class="top-links"><a href="./">打开工作台 →</a><a href="./README.md" download>下载 Markdown</a></div></header><div class="layout"><aside><div class="toc">
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MuseRadar AI · 完整操作指南</title><style>body{margin:0;color:#213b4d;background:#f5f8fa;font:15px/1.9 system-ui,"Microsoft YaHei",sans-serif}header{background:#112d40;padding:25px 6%;color:white}header a{color:#8ce4cc;margin-right:20px}.layout{max-width:1280px;margin:28px auto;display:grid;grid-template-columns:235px minmax(0,1fr);gap:30px;padding:0 24px}aside{position:sticky;top:20px;align-self:start;font-size:12px;max-height:90vh;overflow:auto}aside ul{padding-left:18px}a{color:#007f6d;text-decoration:none}main{background:white;padding:35px 45px;border:1px solid #e0e9ee;border-radius:12px;min-width:0}h1{font-size:25px}h2{font-size:21px;padding-top:24px;border-top:1px solid #e7eef1;scroll-margin-top:20px}h3{font-size:17px}p,li{overflow-wrap:anywhere}blockquote{background:#eaf6f1;border-left:4px solid #20a080;margin:20px 0;padding:12px 20px}table{border-collapse:collapse;width:100%;font-size:13px}td,th{border:1px solid #dce7ec;padding:10px;text-align:left}th{background:#edf5f3}pre{overflow:auto;background:#f0f4f7;padding:18px;border-radius:7px}code{font-size:13px}.top-links{margin-top:10px}@media(max-width:800px){.layout{display:block;padding:0 12px}aside{position:static;max-height:none;margin-bottom:20px}main{padding:22px}table{display:block;overflow:auto}}@media print{aside,header{display:none}.layout{display:block;margin:0}main{border:0;padding:0}}</style></head><body><header><strong>MuseRadar AI · 完整操作指南</strong><div class="top-links"><a href="./">打开工作台 →</a><a href="./README.md" download>下载 Markdown</a></div></header><div class="layout"><aside><div class="toc">
 <ul>
-<li><a href="#museradar-ai-34">MuseRadar AI 使用指南 3.4</a><ul>
-<li><a href="#1">1. 开始前</a></li>
-<li><a href="#2">2. 确认博物馆资源</a></li>
-<li><a href="#3">3. 获取在线评论</a></li>
-<li><a href="#4">4. 查看与删除任务</a></li>
-<li><a href="#5">5. 全部评论词云</a></li>
-<li><a href="#6-ai">6. AI 判别与五档筛选</a></li>
-<li><a href="#7-ab">7. 画像与 A/B 宣传方案</a></li>
-<li><a href="#8">8. 导入导出与数据保留</a></li>
-<li><a href="#9">9. 技术与验证边界</a></li>
-</ul>
-</li>
+<li><a href="#1">1. 从登录到生成宣传语</a></li>
+<li><a href="#2-key">2. 账号、Key 和工作空间</a></li>
+<li><a href="#3">3. 南京大学博物馆知识库</a></li>
+<li><a href="#4">4. 小红书内置示例</a></li>
+<li><a href="#5">5. 微博与文件导入</a></li>
+<li><a href="#6">6. 词云与评论筛选</a></li>
+<li><a href="#7-deepseek">7. DeepSeek 分析、暂停与失败处理</a></li>
+<li><a href="#8">8. 画像和馆藏匹配</a></li>
+<li><a href="#9">9. 生成一句爆品宣传语</a></li>
+<li><a href="#10">10. 数据保存与常见问题</a></li>
 </ul>
 </div>
-</aside><main><h1 id="museradar-ai-34">MuseRadar AI 使用指南 3.4</h1>
-<p>网站：https://hxuzhe.github.io/museradar-ai/</p>
-<p>面向博物馆运营人员的观众需求研究工具。当前使用虚构示例馆资源和公开社区实际返回的评论，不预载历史研究评论、不生成假评论。公开社区以英文讨论为主，不代表中国博物馆观众。</p>
-<h2 id="1">1. 开始前</h2>
-<p>打开网站后自动连接网站提供的 AI 后台，无需填写个人 API Key。点击“网站 AI · 查看用量”查看普通访客额度；有访问密码时可进入授权模式。</p>
-<p>普通访客每个会话最多分析 200 条评论、生成 1 份方案；同一网络每日 600 条评论、6 份方案。授权模式解除上述体验额度，但两种模式均保留同一网络每分钟 20 次操作、全站并发 2 个请求、全站每日 100 次模型调用和 500000 tokens 保守上限。费用由网站所有者的模型账户承担。</p>
-<p>密码只由后台验证，不写入浏览器工作空间或 GitHub；退出授权或会话过期后需要重新验证。查看用量、授权、词云都不调用模型。</p>
-<h2 id="2">2. 确认博物馆资源</h2>
-<p>在“博物馆知识库”编辑名称、展览、活动、参与条件和摄影等限制。当前为虚构示例馆，真实营销前请替换为馆方确认的资料。修改后旧分析需重算，旧方案会显示过期。</p>
-<h2 id="3">3. 获取在线评论</h2>
-<p>进入“01 选择数据与获取”，选择 Hacker News、Travel Stack Exchange 或 History Stack Exchange，输入英文关键词，例如 museum，设置起止日期后点击“获取全部可访问结果”。课堂演示建议先选择最近一周。</p>
-<p>系统按公开接口自动翻页、去重并保存进度。Travel 与 History 先检索相关问题，再获取问题下评论，正文不一定直接出现关键词。页面显示请求次数、响应数量、新增、重复、排除及错误；中断后可以继续或重试。</p>
-<p>“已取完”只表示当前接口在选定范围内可访问的结果已经取完，不保证覆盖全平台。在线获取是现场请求接口，不表示每条评论刚刚发表；日期仍按原始发布时间记录。</p>
-<p>新版初始评论为零。旧浏览器中的内置历史评论会自动清理，已获取的公开讨论保留。不再提供历史快照加载入口。</p>
-<h2 id="4">4. 查看与删除任务</h2>
-<p>每个任务提供“查看本任务评论”或“继续 / 重试”，以及“删除任务及评论”。查看只筛选本任务关联的评论，不再将同一平台的所有任务混在一起。</p>
-<p>点击删除后先预览将移除的独占评论数及保留的共享评论数，确认后删除任务、独占评论、对应分析与人工审核，并清理引用被删评论的已保存方案。词云、KPI、画像立即重算。多个任务共同获取的评论会保留到最后一个任务删除；独立导入数据不会随获取任务删除。</p>
-<p>可在当前页面“撤销上次删除”，只保留一次撤销机会，刷新后失效；模型已产生的费用不返还。运行中请先暂停任务。</p>
-<p>旧版本未记录精确归属的任务，会按来源、日期、关键词及采集时间恢复关联并标记“旧任务”。删除前请核对数量；未能确定归属的评论不会自动删除。新任务从第一次响应开始记录精确的评论 ID，包括重复评论的共享归属。</p>
-<h2 id="5">5. 全部评论词云</h2>
-<p>在数据中心向下滚动查看“全部已载入评论 · 词云”。统计全部已载入的非手动测试评论，不受表格分页或筛选影响；获取、导入或删除后自动更新。点击词语查看相关评论；可导出词频 CSV 或下载词云 SVG。</p>
-<p>词云使用本地中英文分词、文化词典和停用词表，不消耗模型 token；字号反映出现次数，不代表情绪、到访意愿或 AI 用户画像。</p>
-<h2 id="6-ai">6. AI 判别与五档筛选</h2>
-<p>进入“02 分析与五档筛选”，可按任务、正文、来源、日期、主题、情绪及审核状态缩小范围，点击“用 AI 分析当前筛选”。一次会话可分析 200 条；模型每批处理最多 5 条，依次执行并自动控制请求间隔。共享网络触发频率限制时按后台给定等待时间自动重试，最多 3 次，可随时暂停。会话/每日额度和全站预算耗尽不会自动重试；失败保留原因。先分析少量评论确认服务可用，再扩大范围。</p>
-<p>评论判别使用内置提示词并关闭思考。五档依次为明确排斥、意愿较弱、一般兴趣、潜在体验需求、明确未来参观计划。已参观、无关、证据不足单独标识，不强行分档。正面情绪不等于未来参观意愿；英文证据保留原文，解释使用中文。</p>
-<p>点击“查看内置判别提示词原文”查看完整规则。点击评论可查看证据、不确定性、资源匹配和人工修正。五档可多选，所有筛选结果跨页面共享，不受每页 50 条限制。</p>
-<p>也可手动输入文本测试，但会标为手动来源，不冒充公开评论、不计入词云；该操作在 AI 模式下会调用模型。</p>
-<h2 id="7-ab">7. 画像与 A/B 宣传方案</h2>
-<p>进入“03 需求画像”，选择最近 30 / 90 / 180 / 365 天窗口。先完成范围内所有评论的分析或人工排除，再查看群体共同需求。在线评论中的过去参观反馈仍会单独识别，不当作新需求。</p>
-<p>点击某个画像“为此画像制定方案”，进入“04 宣传方案”，点击“AI 阅读群体证据并生成”。证据整理关闭思考，最终方案开启 DeepSeek 思考模式，综合该群体全部有效评论的摘要，生成机会描述、资源、内容切入点、A/B 文案、渠道假设及验证指标。</p>
-<p>方案可编辑、保存、复制和导出 Markdown。A/B 文案尚未真实投放，不保证转化效果；摄影、开放时间、活动、票价等承诺必须由馆方审核，宣传覆盖没有投放数据时标为待核实。</p>
-<h2 id="8">8. 导入导出与数据保留</h2>
-<p>保留 CSV / JSON 导入功能，用于合法授权的数据。每条至少有 text，可提供 date、source、platform、sourceUrl、evidenceUrl；导入前显示错误及预览，来源保持未核实。额外用户名和联系方式字段不导入，正文联系方式会隐去。</p>
-<p>数据保存在当前浏览器，换设备不会自动同步。导出评论、分析、画像和方案用于备份。任务删除只影响当前浏览器的数据；在线原始评论及其他人的工作空间不受影响。</p>
-<h2 id="9">9. 技术与验证边界</h2>
-<p>前端独立部署到 GitHub Pages；AI 密钥仅由云端后台保管。六个页面共享当前工作空间状态，后台保留频率、并发与共享预算保护。没有接入未经授权的平台抓取，也不建立可识别个人的广告名单。</p>
-<p>隔离测试覆盖接口翻页、去重、分类验证、授权、预算、思考模式及任务删除。开发期间未进行真实付费推理验证，真实模型是否可调用仍取决于账户余额、服务可用性及供应商限制。</p>
-<p>历史研究数据只作为仓库 research/legacy-fixtures 下的回归测试资料保留，不随网站页面加载。新旧版本变化见 docs/2026-10-28-v33.md。</p></main></div></body></html>
+</aside><main><h1 id="museradar-ai">MuseRadar AI 完整操作指南</h1>
+<p>更新于 2026 年 11 月 24 日，对应当前线上功能。</p>
+<p><a href="https://hxuzhe.github.io/museradar-ai/">打开工作台</a></p>
+<h2 id="1">1. 从登录到生成宣传语</h2>
+<ol>
+<li>点击「登录 / 注册个人 AI」，登录或注册账号。</li>
+<li>在个人账号面板保存自己的 DeepSeek API Key。</li>
+<li>进入「博物馆知识库」，查看南京大学博物馆资料与展品来源。</li>
+<li>进入「01 选择数据与获取」，在小红书内置示例中点击「载入全部示例」。</li>
+<li>进入「02 分析与五级筛选」，先按关键词或日期选少量评论，再点击「用 AI 分析当前筛选」。</li>
+<li>打开评论「查看 / 修正」，核对原文证据、五级指数、情绪和馆藏匹配。</li>
+<li>进入「03 需求画像」，检查日期窗口，并将「馆藏匹配」设为「有本馆匹配资源」。</li>
+<li>选择画像的方案入口，进入「04 宣传方案」，点击「AI 阅读群体证据并生成」。</li>
+<li>查看主推对象、样本趋势、一句宣传语及评论依据，编辑后保存、复制或导出。</li>
+</ol>
+<p>分析和宣传语生成会消耗当前模式使用的模型额度。首次体验建议先跑通少量评论，再扩大范围。</p>
+<h2 id="2-key">2. 账号、Key 和工作空间</h2>
+<p>用户名须为三个英文字母加四位数字，例如 abc1234，大小写不区分。密码须为六位数字，可保留前导零。hxz1103 为保留用户名。</p>
+<p>登录后在个人账号面板保存、更换或移除 DeepSeek Key。Key 在服务端加密保存，页面仅显示末四位。保存 Key 不会发起付费模型测试，实际分析成功才表示该次调用可用。</p>
+<p>个人账号使用自己的 DeepSeek 额度。游客可使用网站共享 AI，通过「网站 AI · 查看用量」查看额度，有访问密码时可进入授权模式。共享服务仍受全站预算和并发保护，具体以后台用量及提示为准。</p>
+<p>个人账号与游客在浏览器里使用各自的工作空间。刷新后需重新登录个人账号，原账号评论和分析仍保存在该浏览器。切换账号后应确认当前工作空间。</p>
+<h2 id="3">3. 南京大学博物馆知识库</h2>
+<p>「博物馆资料」「展品」「展览与活动」都在知识库页面内。默认案例为南京大学博物馆，包含 12 条附官方来源链接的馆藏记录。实际开放、进校和展品陈列安排以馆方公告为准。</p>
+<h3 id="_1">编辑馆情与展品</h3>
+<p>修改博物馆名称、城市、地址、简介、开放及预约资料后点击「保存资料」。单件展品可填写名称、年代、类别、详细介绍、馆藏编号、别名和关键词。可从详细介绍提取关键词，再人工修正。</p>
+<p>图片支持手动添加、更换和移除，支持 PNG、JPEG、WebP，单张最大 500 KB。展品词云按涉及的展品数确定字号，点击词语可以筛选展品。</p>
+<h3 id="csv">CSV 批量导入</h3>
+<p>点击「下载 CSV 模板」。固定列顺序为「名称、年代、类别、详细介绍、馆藏编号、别名」，前四列必填，年代不详可填「不详」。后两列可留空但须保留列，文件保存为 UTF-8 CSV。</p>
+<p>点击「选择 CSV」或将文件拖到导入区，核对预览后确认。有误的行和重复馆藏编号会提示并跳过。导入后可逐件补图。</p>
+<h3 id="_2">组展和云端同步</h3>
+<p>点击「新建展览」，填写名称、主题、简介和日期，再搜索并勾选至少一件展品。同件展品可加入多个展览。删除展品时会提示关联展览。案例未预置展览活动，可按实际安排添加。</p>
+<p>登录个人账号后点击「保存到云端」。换设备登录同一账号，再点「读取云端」。读取会替换当前馆藏，须核对确认提示。</p>
+<p>云端同步馆情、展品、展览及图片。评论、分析、复核和文案保存在浏览器，需要单独备份。馆藏变化会使依赖旧资料的分析和文案需要重新核验。</p>
+<h2 id="4">4. 小红书内置示例</h2>
+<p>登录任意个人账号，点击数据获取页的「载入全部示例」，载入 7,318 条去重评论及关联 217 篇笔记的上下文。重复载入会跳过已有示例 ID。</p>
+<p>也可以在社区选择「小红书（内置示例）」，填写关键词、评论开始日期和结束日期，再点「获取评论」。关键词搜索评论及笔记上下文，日期约束评论发布日期，日期可留空。</p>
+<p>这些是用户提供的固定样本，来源未独立核实。笔记用于理解指代，需求评分对象为评论。样本热度只代表当前数据集。源表中的用户主页、账号 ID 和 IP 字段已排除。</p>
+<h2 id="5">5. 微博与文件导入</h2>
+<h3 id="_3">微博</h3>
+<p>选择微博，输入关键词及评论起止日期。日期按北京时间处理，可留空。当前需要退出个人账号，使用网站共享 AI 的授权模式。</p>
+<p>一次搜索最多返回 50 条，受微博套餐、期限、权限及剩余次数限制。微博云端搜索此前仍有请求失败记录，可用性以当前响应为准。若提示授权、体验到期或上游错误，可先用小红书固定样本或文件继续后续流程。</p>
+<h3 id="csv-json">CSV / JSON 评论导入</h3>
+<p>点击「导入 CSV / JSON」。JSON 为对象数组，CSV 第一行为字段名。每条至少提供 text，date 为 YYYY-MM-DD。可选 source、platform、sourceUrl、evidenceUrl。小红书还支持 noteId、noteTitle、noteBody，需在个人工作空间导入。</p>
+<p>导入预览展示有效新增、重复和错误数量，确认后加入工作空间。来源声明会保留，导入本身不会将数据升级为独立核验。请使用自己有权处理的数据。</p>
+<h2 id="6">6. 词云与评论筛选</h2>
+<p>「全部已载入评论 · 词云」统计工作空间全部非手动测试评论，不受列表筛选和分页影响。点击词语可查看评论，可导出词频 CSV 和词云 SVG。</p>
+<p>评论词云按正文出现次数统计，展品词云按关键词涉及展品数统计。情绪与需求强度由评论分析另行判断。</p>
+<p>评论支持关键词、来源、日期、五级指数、情绪、主题及复核状态筛选，多项条件会叠加。列表每页 50 条，分析按钮处理整个筛选结果。找不到记录时先点击「清除全部筛选」。</p>
+<h2 id="7-deepseek">7. DeepSeek 分析、暂停与失败处理</h2>
+<p>点击「用 AI 分析当前筛选」。系统跳过已有有效结果及人工排除的评论，优先处理短评论。使用 DeepSeek Flash，评论判别关闭思考。每批最多 30 条，长文本按长度拆小批。</p>
+<p>个人 Key 最多 8 批滚动并发，一批结束即补发下一批，服务端目前有每分钟 120 次个人分析请求的保护。共享模式逐批提交，实际耗时受网络、模型输出和账户限制影响。</p>
+<p>当前评论分析关闭自动重试。临时限流、超时、漏条或校验不通过的评论会记录为「仍待处理」，本轮继续后续批次。额度耗尽或授权失效时暂停并保留进度。</p>
+<p>点击「暂停并保留进度」可以主动停止。再次手动启动时会跳过成功结果，处理未完成或过期的评论。仍待处理数不表示低需求数量。打开「查看 / 修正」查看具体原因。</p>
+<h3 id="_4">五级需求指数</h3>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>颜色条</th>
+<th>含义</th>
+<th>示例表达</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>红色</td>
+<td>无关、证据不足、广告、纯表情或明确拒绝</td>
+<td>不打算去</td>
+</tr>
+<tr>
+<td>2</td>
+<td>红色</td>
+<td>泛兴趣、称赞或纯历史回顾</td>
+<td>上次去过，还不错</td>
+</tr>
+<tr>
+<td>3</td>
+<td>黄色</td>
+<td>对具体展品、工艺、故事或体验好奇</td>
+<td>小克鼎铭文讲了什么</td>
+</tr>
+<tr>
+<td>4</td>
+<td>黄色</td>
+<td>想到访或在查预约、开放等条件</td>
+<td>校外能预约吗，想看看小克鼎</td>
+</tr>
+<tr>
+<td>5</td>
+<td>绿色</td>
+<td>有具体到访安排、已预约或正在前往</td>
+<td>已约了这周六下午</td>
+</tr>
+</tbody>
+</table>
+<p>需求指数不能换算成到馆概率。情绪独立判断，负面情绪也可能有到访意愿。历史回顾和明确过期的计划不作为近期新需求。</p>
+<p>通过「查看 / 修正」核对证据、不确定性、资源匹配，人工确认、排除或修改。旧版评分及馆藏改变后的过期分析需要重算。手动测试文本在 AI 模式下会调用模型。</p>
+<h2 id="8">8. 画像和馆藏匹配</h2>
+<p>进入「03 需求画像」，选择最近 30、90、180 或 365 天，并检查其他筛选。较旧样本可能不在默认窗口内，必要时扩大范围。</p>
+<p>馆藏匹配支持「全部」「有本馆匹配资源」「无匹配资源」「待核实」，改变筛选会重算分群采用的评论和数量。尚未分析的评论仍会显示待分析。</p>
+<p>3–5 级的相关需求可以进入画像，对展品的具体好奇也是推广线索。有匹配要求本馆确实存在承接资源。例如小克鼎可承接铭文好奇，但该藏品不能证明提供免费讲解。</p>
+<p>点击画像查看讨论量、级别分布、关联资源和原始证据，核验对象及指代是否正确。</p>
+<h2 id="9">9. 生成一句爆品宣传语</h2>
+<p>先完成选定范围的分析，或人工排除不参与研究的评论。在画像中选「有本馆匹配资源」，选择画像进入「04 宣传方案」。工作台只使用有馆藏匹配的画像。</p>
+<p>点击「AI 阅读群体证据并生成」。系统先分批提炼证据，最终用开启思考的 DeepSeek 生成主推对象、样本趋势、一句原创宣传语和评论依据。</p>
+<p>趋势比较样本内近 30 天与前 30 天的评论、不同笔记数，受当前窗口限制。比较完整两个时段时选择至少 90 天。数据不足时应显示样本热门话题或趋势待验证。</p>
+<p>文案可编辑、保存、复制及导出 Markdown。馆藏是否正在展出、开放和预约承诺需馆方核对。规则演示模式会明确标为模板生成。评论、复核或馆藏变化可能使原文案过期。</p>
+<h2 id="10">10. 数据保存与常见问题</h2>
+<p>评论、分析、复核、文案保存在浏览器对应的工作空间。清理网站数据可能导致丢失，可分别导出评论、分析、画像及文案。连接与运行设置提供备份入口时可导出完整工作空间，恢复会替换当前内容，应先备份。</p>
+<table>
+<thead>
+<tr>
+<th>问题</th>
+<th>处理方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>示例要求登录</td>
+<td>登录个人账号后再载入</td>
+</tr>
+<tr>
+<td>登录后没有游客评论</td>
+<td>退出查看游客空间，或导出再导入目标账号</td>
+</tr>
+<tr>
+<td>提示先配置 Key</td>
+<td>进入个人账号面板保存可用 Key</td>
+</tr>
+<tr>
+<td>有评论却没有画像</td>
+<td>检查时间窗、级别、匹配、复核状态和未分析数量</td>
+</tr>
+<tr>
+<td>宣传语按钮不可用</td>
+<td>完成范围内分析，并确认存在有匹配资源的画像</td>
+</tr>
+<tr>
+<td>仍待处理增加</td>
+<td>打开评论详情查看原因，本轮会继续其他批次</td>
+</tr>
+<tr>
+<td>模型余额、授权或预算错误</td>
+<td>修复后手动继续，成功结果已经保存</td>
+</tr>
+<tr>
+<td>页面显示旧功能</td>
+<td>暂停任务后刷新，必要时强制刷新</td>
+</tr>
+<tr>
+<td>换电脑缺少馆藏图片</td>
+<td>原设备保存到云端，新设备登录后读取云端</td>
+</tr>
+</tbody>
+</table>
+<p>旧英文社区采集评论会自动清理。当前完整演示建议使用小红书固定样本，微博可用性以接口响应为准。</p></main></div></body></html>
