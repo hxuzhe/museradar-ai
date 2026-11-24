@@ -1,3 +1,4 @@
+import {marketingInstruction} from './marketing-prompt.mjs';
 import {createServer} from 'node:http';
 import {readFile,writeFile,mkdir,rename} from 'node:fs/promises';
 import {resolve} from 'node:path';
@@ -46,7 +47,7 @@ export function createApp(config=configFromEnv(),{fetchImpl=fetch}={}){let activ
   let packets=summaries.map(s=>({coveredIds:s.coveredIds,content:s.observations}));let reductionRounds=0;
   // Hierarchical reduction limits final context while keeping a complete coverage manifest.
   while(JSON.stringify(packets).length>45000&&packets.length>1){const reduced=[];for(let i=0;i<packets.length;i+=6){const batch=packets.slice(i,i+6),result=await model(policy+'\n将所有分批观察合并为需求研究摘要，返回 {summary:中文字符串}，不超过 2500 字符。必须考虑所有输入；保留需求、障碍、差异、代表证据 ID 和资源约束，不推断人口身份。',{packets:batch});if(typeof result.value.summary!=='string'||result.value.summary.length>5000)throw fail('模型汇总结果无效',502);reduced.push({coveredIds:batch.flatMap(p=>p.coveredIds),content:result.value.summary});}packets=reduced;if(++reductionRounds>8)throw fail('群体过大，请缩小范围后重试',413);}
-  const result=await model(policy+'\n为整个需求群体生成中文 Markdown 宣传方案，返回 {text,evidenceIds,resourceIds}。text 包含：机会和原始证据、需求群体、推荐资源、内容切入点、A/B 文案、平台和关键词、线下或内容运营建议、效果验证指标。不得声称已真实投放，不得无依据承诺摄影许可、免费、活动、票价或时间。平台建议是待试验假设。无资源匹配时提出核实步骤，不承诺活动。方案需结合不同意见，引用 [评论ID]。正文末注明历史与未核实来源数量、宣传覆盖待核实。evidenceIds 为引用评论的真实 ID，resourceIds 只用已有资源。',{group,packets,resources,museum},'plan');const plan=validatePlan(result.value,group.memberIds,resources);value={...plan,coveredIds:group.memberIds,model:config.model,usage:result.usage,reductionRounds};
+  const result=await model(marketingInstruction,{group,packets,resources,museum},'plan');const plan=validatePlan(result.value,group.memberIds,resources);value={...plan,coveredIds:group.memberIds,model:config.model,usage:result.usage,reductionRounds};
  }
  await saveCache(config,'request-'+crypto.randomUUID(),{path,at:new Date().toISOString(),model:config.model,usage:value.usage,covered:value.coveredIds?.length||value.results?.length||value.summary?.coveredIds.length||0});send(200,value);
  }catch(e){send(e.status||500,{error:e.status?e.message:e.name==='TimeoutError'?'模型响应超时，可重试':'后端处理失败，请检查本机服务配置'});}finally{if(acquired)active--;}});
