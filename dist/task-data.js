@@ -1,3 +1,5 @@
+import {curatedExampleIds} from './xhs-curated.js?v=20261124-curated';
+const curatedIds=new Set(curatedExampleIds.map(id=>'XHS-EXAMPLE-'+id));
 const textKey=p=>p.text.trim().replace(/\s+/g,' ').toLowerCase();
 const isHistorical=p=>p.kind==='visitor-review'||/^FS21677282-/.test(p.id)||/Figshare/i.test(p.source||'');
 function prune(state,removed){
@@ -21,7 +23,7 @@ export function removeRetiredCommunityData(state){
  return removed.length;
 }
 export function prepareTaskData(state){
- const removed=state.posts.filter(isHistorical).map(p=>p.id);prune(state,removed);state.tasks||=[];
+ const removed=state.posts.filter(p=>isHistorical(p)||(/^XHS-EXAMPLE-\d+$/.test(p.id)&&!curatedIds.has(p.id))).map(p=>p.id);prune(state,removed);state.tasks||=[];
  for(const task of state.tasks){if(Array.isArray(task.postIds))continue;
   const terms=(task.query||'').toLowerCase().split(/\s+/).filter(Boolean);
   task.postIds=state.posts.filter(p=>p.kind==='public-discussion'&&p.sourceId===task.source&&(!task.from||p.date>=task.from)&&(!task.to||p.date<=task.to)&&(!p.collectedAt||!task.createdAt||p.collectedAt>=task.createdAt)&&(task.source!=='hn'||terms.every(term=>(p.text+' '+(p.threadTitle||'')).toLowerCase().includes(term)))).map(p=>p.id);
